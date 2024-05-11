@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Neil Patrick
  */
 public class EmployeeDashboard extends javax.swing.JFrame {
-
+    
     Employee authenticatedEmployee;
     Employee selectedEmployee;
     Holiday selectedHoliday;
@@ -32,17 +32,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         initComponents();
         summaryRecordStartdate.setDate(new Date(new Date().getYear(), new Date().getMonth(), 1));
         summaryRecordEndDate.setDate(new Date());
-
+        
         refreshEmployeeList();
         refreshAuthEmployee();
         refreshAdminOvertimeRequestList();
-
+        
         if (this.authenticatedEmployee != null) {
             employeeRefreshLeaveRequestList();
         }
-
+        
         List<Department> departments = DepartmentService.getAllDepartments();
-
+        
         for (int i = 0; i < departments.size(); i++) {
             updateProfileDeptCombobox.addItem(departments.get(i).department_name);
             adminUpdateDeptBox.addItem(departments.get(i).department_name);
@@ -50,7 +50,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         //refreshLeaveRequestList();
     }
-
+    
     public void setAuthenticatedEmployee(Employee employee) {
         this.authenticatedEmployee = employee;
         employeeRefreshLeaveRequestList();
@@ -65,14 +65,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         updateProfileDeptCombobox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         adminUpdateDeptBox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         updateProfileSubmitBtn.setVisible(false);
-
+        
         this.refreshCurrentAttendanceRecord();
         DefaultListModel leaveBalanceListModel = new DefaultListModel();
-
+        
         String Title = "  Leave Balances";
-
+        
         leaveBalanceListModel.addElement(Title);
-
+        
         List<LeaveType> leaveTypes = LeaveTypeService.getLeaveTypesWithEmployeeBalance(this.authenticatedEmployee.id);
         System.out.println("size  " + leaveTypes.size());
         for (int i = 0; i < leaveTypes.size(); i++) {
@@ -80,11 +80,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             leaveBalanceListModel.addElement("  " + type.name + "  :     " + type.employeeBalance + " balance");
         }
         leaveBalanceList.setModel(leaveBalanceListModel);
-
+        
         DefaultListModel profileInformationListModel = new DefaultListModel();
-
+        
         profileInformationListModel.addElement("  " + authenticatedEmployee.getFullName());
-
+        
         profileInformationListModel.addElement("  " + authenticatedEmployee.email);
         profileInformationListModel.addElement("  " + authenticatedEmployee.phone_number);
         profileInformationListModel.addElement("  " + authenticatedEmployee.department.department_name);
@@ -93,14 +93,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         profileInformationListModel.addElement("  " + authenticatedEmployee.username);
         profileInformationListModel.addElement("  ");
         profileInformationListModel.addElement("  " + authenticatedEmployee.hiring_date);
-
+        
         MyInformationList.setModel(profileInformationListModel);
-
+        
     }
-
+    
     public void refreshCurrentAttendanceRecord() {
         this.currentAttendanceRecord = AttendanceRecordService.getCurrentAttendanceRecordByEmployeeId(this.authenticatedEmployee.id, new Date());
-
+        
         if (this.currentAttendanceRecord == null) {
             attendanceButton.setText("Time In");
             attendanceButton.setEnabled(true);
@@ -116,15 +116,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 attendanceSummaryLabel.setText("Time IN: " + this.currentAttendanceRecord.getFormattedTimeIn() + " Time Out: " + this.currentAttendanceRecord.getFormattedTimeOut());
             }
         }
-
+        
         this.validate();
     }
-
+    
     private void refreshAdminOvertimeRequestList() {
         DefaultTableModel adminOvertimeRequesttTableModel = (DefaultTableModel) adminOvertimeListTable.getModel();
         List<OvertimeRequest> overtimeRequests = OvertimeRequestService.getOvertimeRequests();
         adminOvertimeRequesttTableModel.setRowCount(0);
-
+        
         for (int i = 0; i < overtimeRequests.size(); i++) {
             OvertimeRequest overtimeRequest = overtimeRequests.get(i);
             Object[] rowData = {overtimeRequest.request_id, overtimeRequest.date, overtimeRequest.noOfHours, overtimeRequest.status, overtimeRequest.notes, overtimeRequest.employee.getFullName()};
@@ -133,7 +133,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -250,6 +252,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DepartmentTab = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        DepartmentTable = new javax.swing.JTable();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        departmentNameTex = new javax.swing.JTextField();
+        AddDepartmentBtn = new javax.swing.JButton();
         adminManageEmployee = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -511,7 +519,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(OverTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(AdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         getContentPane().add(LeftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 179, 580));
@@ -753,7 +761,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(DashboradTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("dashboard", DashboradTab);
@@ -981,7 +989,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(ProfileTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateProfileEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateProfileSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("tab4", ProfileTab);
@@ -1081,12 +1089,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(LeaveTabbedLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         LeaveTabbedLayout.setVerticalGroup(
             LeaveTabbedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeaveTabbedLayout.createSequentialGroup()
-                .addContainerGap(209, Short.MAX_VALUE)
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -1094,11 +1102,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         RIghtPanelTabbed.addTab("tab2", LeaveTabbed);
 
         AdminDashboradTab.setBackground(new java.awt.Color(204, 204, 204));
-        AdminDashboradTab.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AdminDashboradTabMouseClicked(evt);
-            }
-        });
 
         EmployeeTab.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -1180,7 +1183,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Employees", EmployeeTab);
@@ -1256,7 +1259,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Leave Requests", LeaveRequestTab);
@@ -1606,17 +1609,84 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGap(0, 42, Short.MAX_VALUE)
         );
 
+        DepartmentTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Department  Id", "Department Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane9.setViewportView(DepartmentTable);
+
+        jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel47.setText("Add Department");
+
+        jLabel48.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel48.setText("Department Name");
+
+        departmentNameTex.setBackground(new java.awt.Color(255, 255, 255));
+        departmentNameTex.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        AddDepartmentBtn.setBackground(new java.awt.Color(51, 153, 255));
+        AddDepartmentBtn.setForeground(new java.awt.Color(255, 255, 255));
+        AddDepartmentBtn.setText("Add");
+        AddDepartmentBtn.setBorder(null);
+        AddDepartmentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddDepartmentBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane9)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AddDepartmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 480, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel48)
+                            .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AddDepartmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout DepartmentTabLayout = new javax.swing.GroupLayout(DepartmentTab);
@@ -1981,7 +2051,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(addOvertimeRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("tab7", OvertimeTab);
@@ -2092,7 +2162,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(SubmitOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
@@ -2153,6 +2223,19 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             holidayTableModel.addRow(rowData);
         }
     }
+    
+    private void refreshDepartmentTable(){
+        DefaultTableModel departmentDefaultTableModel  =(DefaultTableModel) DepartmentTable.getModel();
+        List<Department> departments = DepartmentService.getAllDepartments();
+        departmentDefaultTableModel.setRowCount(0);
+        
+        for (int i = 0; i <  departments.size(); i++){
+            Department department = departments.get(i);
+            Object[] rowdata = {department.department_id, department.department_name};
+            departmentDefaultTableModel.addRow(rowdata);
+            
+        }
+    }
 
     private void refreshAttendanceRecord() {
         DefaultTableModel summaryDefaultTableModel = (DefaultTableModel) AttendanceSummaryTable.getModel();
@@ -2203,50 +2286,50 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DefaultTableModel leaveRequesttTableModel = (DefaultTableModel) LeaveRequestAdminTable.getModel();
         List<LeaveRequest> leaveRequests = LeaveRequestService.getAllLeaveRequests();
         leaveRequesttTableModel.setRowCount(0);
-
+        
         System.out.println(leaveRequests.size());
-
+        
         for (int i = 0; i < leaveRequests.size(); i++) {
             LeaveRequest leaveRequest = leaveRequests.get(i);
             Object[] rowData = {leaveRequest.request_id, leaveRequest.getFormattedStartDate(), leaveRequest.getFormattedEndDate(), leaveRequest.status, leaveRequest.notes, leaveRequest.employee.getFullName(), leaveRequest.leaveType.name};
             leaveRequesttTableModel.addRow(rowData);
         }
     }
-
+    
     private void refreshOvertimeRequestList() {
         DefaultTableModel overtimeRequesttTableModel = (DefaultTableModel) employeeOvertimeTable.getModel();
         List<OvertimeRequest> overtimeRequests = OvertimeRequestService.getOvertimeRequestsByEmployeeId(this.authenticatedEmployee.id);
         overtimeRequesttTableModel.setRowCount(0);
-
+        
         for (int i = 0; i < overtimeRequests.size(); i++) {
             OvertimeRequest overtimeRequest = overtimeRequests.get(i);
             Object[] rowData = {overtimeRequest.request_id, overtimeRequest.date, overtimeRequest.noOfHours, overtimeRequest.status, overtimeRequest.notes};
             overtimeRequesttTableModel.addRow(rowData);
         }
     }
-
+    
     public void employeeRefreshLeaveRequestList() {
         DefaultTableModel employeeLeaveRequestDefaultTableModel = (DefaultTableModel) employeeRequestLeaveTable.getModel();
         List<LeaveRequest> leaveRequests = LeaveRequestService.getAllLeaveRequestsByEmployeeId(authenticatedEmployee.id);
         employeeLeaveRequestDefaultTableModel.setRowCount(0);
-
+        
         System.out.println(leaveRequests.size());
-
+        
         for (int i = 0; i < leaveRequests.size(); i++) {
             LeaveRequest leaveRequest = leaveRequests.get(i);
             Object[] rowData = {leaveRequest.request_id, leaveRequest.getFormattedStartDate(), leaveRequest.getFormattedEndDate(), leaveRequest.status, leaveRequest.notes, leaveRequest.leaveType.name};
             employeeLeaveRequestDefaultTableModel.addRow(rowData);
         }
     }
-
+    
     void setColor(JPanel panel) {
         panel.setBackground(new Color(100, 206, 250));
     }
-
+    
     void resetColor(JPanel panel) {
         panel.setBackground(new Color(0, 200, 255));
     }
-
+    
     private void refreshAuthEmployee() {
         String last_name = (String) LastNameText.getText();
         String first_name = (String) FirstNameText.getText();
@@ -2254,9 +2337,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         String phone_number = (String) PhoneNumberText.getText();
         String address = (String) AddressText.getText();
         String position = (String) PositionText.getText();
-
+        
     }
-
+    
 
     private void DashboardButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardButtonMouseClicked
         // TODO add your handling code here:
@@ -2272,13 +2355,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void LeaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LeaveButtonMouseClicked
         // TODO add your handling code here:
         RIghtPanelTabbed.setSelectedIndex(2);
-
+        
         resetColor(DashboardButton);
         setColor(LeaveButton);
         resetColor(MyProfileButton);
         resetColor(AdminButton);
         resetColor(AdminButton);
-
+        
 
     }//GEN-LAST:event_LeaveButtonMouseClicked
 
@@ -2324,9 +2407,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         String address = (String) AddressText.getText();
         String position = (String) PositionText.getText();
         String department_name = updateProfileDeptCombobox.getSelectedItem().toString();
-
+        
         Department department = DepartmentService.getDepartmentByName(department_name);
-
+        
         if (last_name.isEmpty() || first_name.isEmpty() || email.isEmpty() || phone_number.isEmpty() || address.isEmpty()
                 || position.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please customer to update.");
@@ -2335,14 +2418,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             updateProfileEditBtn.setText("Edit Profile");
             updateProfileSubmitBtn.setVisible(false);
             updateProfileSubmitBtn.setBackground(new Color(255, 255, 255));
-
+            
             JOptionPane.showMessageDialog(rootPane, "Updated Successfully.");
             refreshAuthEmployee();
             this.setUpdateProfileFieldsEditableState(false);
-
+            
         }
     }//GEN-LAST:event_updateProfileSubmitBtnMouseClicked
-
+    
     public void setUpdateProfileFieldsEditableState(Boolean editable) {
         LastNameText.setEnabled(editable);
         FirstNameText.setEnabled(editable);
@@ -2351,7 +2434,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         AddressText.setEnabled(editable);
         PositionText.setEnabled(editable);
         updateProfileDeptCombobox.setEnabled(editable);
-
+        
     }
 
     private void updateProfileEditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProfileEditBtnActionPerformed
@@ -2361,7 +2444,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             updateProfileSubmitBtn.setVisible(false);
             updateProfileEditBtn.setText("Edit");
             this.setUpdateProfileFieldsEditableState(false);
-
+            
         } else {
             updateProfileSubmitBtn.setVisible(true);
             updateProfileEditBtn.setText(cancelText);
@@ -2379,15 +2462,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = AdminEmployeesTable.getSelectedRow();
         String email = AdminEmployeesTable.getValueAt(i, 3).toString();
-
+        
         this.selectedEmployee = EmployeeService.getEmployeeByField("email", email);
-
+        
         StringBuilder message = new StringBuilder();
         message.append("Email: ").append(email).append("\n\n");
-
+        
         Object[] options = {"Update Employee.", "Close"};
         int choice = JOptionPane.showOptionDialog(null, message.toString(), "Updated Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
+        
         if (choice == 0) {
             RIghtPanelTabbed.setSelectedIndex(4);
             viewEmployeeLastNameLabel.setText(this.selectedEmployee.last_name);
@@ -2406,9 +2489,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void LeaveRequestAdminTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LeaveRequestAdminTableMouseClicked
         int i = LeaveRequestAdminTable.getSelectedRow();
         int leaveRequestId = (int) LeaveRequestAdminTable.getValueAt(i, 0);
-
+        
         LeaveRequest leaveRequest = LeaveRequestService.getLeaveRequestById(leaveRequestId);
-
+        
         StringBuilder message = new StringBuilder();
         message.append("_______________________________________________ ").append("\n\n");
         message.append("Employee Name: ").append(leaveRequest.employee.getFullName()).append("\n");
@@ -2417,12 +2500,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("End Date: ").append(leaveRequest.getFormattedEndDate()).append("\n");
         message.append("Duration: ").append(leaveRequest.getDuration()).append(" day/s.").append("\n\n");
         message.append("Notes: ").append(leaveRequest.notes).append("\n");
-
+        
         if (leaveRequest.status.equals("For approval")) {
             System.out.println("ygtumtytytyyty");
             Object[] options = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
+            
             if (choice == 0) {
                 LeaveRequestService.updateLeaveRequest(leaveRequestId, leaveRequest.startDate, leaveRequest.endDate, "Approved", leaveRequest.notes, leaveRequest.leave_type_id, leaveRequest.employee_id);
                 refreshLeaveRequestList();
@@ -2433,7 +2516,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             Object[] options2 = {"Okay"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
         }
-
+        
 
     }//GEN-LAST:event_LeaveRequestAdminTableMouseClicked
 
@@ -2442,16 +2525,16 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         Date hiring_date = HiringdateChooser.getDate();
         String position = (String) adminUpdatePositionText.getText();
         String department_name = adminUpdateDeptBox.getSelectedItem().toString();
-
+        
         Department department = DepartmentService.getDepartmentByName(department_name);
-
+        
         if (position.isEmpty() || hiring_date == null || department_name == null) {
             JOptionPane.showMessageDialog(null, "Please complete the form.");
         } else {
             EmployeeService.updateEmployee(this.selectedEmployee.id, this.selectedEmployee.last_name, this.selectedEmployee.first_name, this.selectedEmployee.email, this.selectedEmployee.phone_number, this.selectedEmployee.address, this.selectedEmployee.username, this.selectedEmployee.password, isAdmin, hiring_date, department.department_id, position);
-
+            
             JOptionPane.showMessageDialog(rootPane, "Updated Successfully.");
-
+            
             refreshEmployeeList();
             RIghtPanelTabbed.setSelectedIndex(3);
         }
@@ -2474,9 +2557,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         int i = employeeRequestLeaveTable.getSelectedRow();
         int leaveRequestId = (int) employeeRequestLeaveTable.getValueAt(i, 0);
         System.out.println("pepaaaa");
-
+        
         LeaveRequest leaveRequest = LeaveRequestService.getLeaveRequestById(leaveRequestId);
-
+        
         StringBuilder message = new StringBuilder();
         message.append("_______________________________________________ ").append("\n");
         message.append("").append("\n");
@@ -2487,31 +2570,31 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("End Date: ").append(leaveRequest.getFormattedEndDate()).append("\n");
         message.append("Duration: ").append(leaveRequest.getDuration()).append(" day/s.").append("\n\n");
         message.append("Notes: ").append(leaveRequest.notes).append("\n");
-
+        
         boolean leaveNotStarted = leaveRequest.startDate.after(new Date());
-
+        
         System.out.println(leaveNotStarted);
-
+        
         if (leaveRequest.status.equals("Approved") && leaveNotStarted) {
-
+            
             Object[] options = {"Cancel Leave", "Close"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
+            
             if (choice == 0) {
                 LeaveRequestService.updateLeaveRequest(leaveRequestId, leaveRequest.startDate, leaveRequest.endDate, "Cancelled", leaveRequest.notes, leaveRequest.leave_type_id, leaveRequest.employee_id);
                 refreshLeaveRequestList();
             }
         } else if (leaveRequest.status.toLowerCase().equals("for approval")) {
             LeaveRequestService.deleteLeaveRequestById(leaveRequestId);
-
+            
             Object[] options = {"Delete Request", "Cancel"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Delete Request.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
+            
             if (choice == 0) {
                 LeaveRequestService.deleteLeaveRequestById(leaveRequestId);
                 refreshLeaveRequestList();
             }
-
+            
         } else {
             Object[] options2 = {"Okay"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
@@ -2538,17 +2621,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void attendanceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attendanceButtonMouseClicked
         if (attendanceButton.isEnabled()) {
-
+            
             attendanceButton.setEnabled(false);
-
+            
             if (this.currentAttendanceRecord != null) {
                 AttendanceRecordService.updateAttendanceRecord(this.currentAttendanceRecord.attendance_record_id, new Date());
             } else {
                 AttendanceRecordService.createAttendanceRecord(new Date(), this.authenticatedEmployee.id);
             }
-
+            
             JOptionPane.showMessageDialog(this, "Attendance successfully recorded.");
-
+            
             this.refreshCurrentAttendanceRecord();
         } else {
             JOptionPane.showMessageDialog(this, "Attendance for today already recorded. Time in again tomorow.");
@@ -2561,12 +2644,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         Date date = OvertimeDateChooser.getDate();
         int day = OvertimeHourCmboBx.getSelectedIndex() + 1;
-
+        
         String notes = OvertimeNotesText.getText();
-
+        
         OvertimeRequestService.createOvertimeRequest(date, day, "For approval", notes, this.authenticatedEmployee.id);
         OvertimeNotesText.setText("");
-
+        
 
     }//GEN-LAST:event_SubmitOvertimeMouseClicked
 
@@ -2583,10 +2666,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = adminOvertimeListTable.getSelectedRow();
         int overtimeRequestId = (int) adminOvertimeListTable.getValueAt(i, 0);
-
+        
         OvertimeRequest overtimeRequest = OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);//.getLeaveRequestById(leaveRequestId);
         System.out.println("ID:   " + overtimeRequestId);
-
+        
         StringBuilder message = new StringBuilder();
         message.append("___________________________________").append("\n");
         message.append("Employee : " + overtimeRequest.employee.getFullName()).append("\n\n");
@@ -2594,7 +2677,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("Date : " + overtimeRequest.date).append("\n");
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
-
+        
         if (overtimeRequest.status.equals("For approval")) {
             Object[] option = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
@@ -2612,7 +2695,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 refreshAdminOvertimeRequestList();
             }
         }
-
+        
 
     }//GEN-LAST:event_adminOvertimeListTableMouseClicked
 
@@ -2620,9 +2703,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = employeeOvertimeTable.getSelectedRow();
         int overtimeRequestId = (int) adminOvertimeListTable.getValueAt(i, 0);
-
+        
         OvertimeRequest overtimeRequest = OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);
-
+        
         StringBuilder message = new StringBuilder();
         message.append("           MY OVERTIME REQUEST        ").append("\n");
         message.append("______________________________________").append("\n\n");
@@ -2630,12 +2713,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Status: " + overtimeRequest.status).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
-
+        
         if (overtimeRequest.status.equals("Approved")) {
-
+            
             Object[] options = {"Cancel Leave", "Close"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
+            
             if (choice == 0) {
                 OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequest.noOfHours, "Cancelled", overtimeRequest.notes, overtimeRequest.employee_id);
                 refreshOvertimeRequestList();
@@ -2643,15 +2726,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 refreshOvertimeRequestList();
             }
         } else if (overtimeRequest.status.toLowerCase().equals("for approval")) {
-
+            
             Object[] options2 = {"Delete Request", "Cancel"};
             int choice2 = JOptionPane.showOptionDialog(null, message.toString(), "Delete Request.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
-
+            
             if (choice2 == 0) {
                 OvertimeRequestService.deleteOvertimeRequestById(overtimeRequestId);
                 refreshOvertimeRequestList();
             }
-
+            
         } else {
             Object[] options2 = {"Okay"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
@@ -2659,11 +2742,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_employeeOvertimeTableMouseClicked
-
-    private void AdminDashboradTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminDashboradTabMouseClicked
-        // TODO add your handling code here:
-        refreshAttendanceRecord();
-    }//GEN-LAST:event_AdminDashboradTabMouseClicked
 
     private void EmployeeFilterComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_EmployeeFilterComboBoxItemStateChanged
         refreshAttendanceRecord();
@@ -2736,6 +2814,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         refreshHolidayTable();
     }//GEN-LAST:event_editHolidayButtonMouseClicked
 
+    private void AddDepartmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddDepartmentBtnMouseClicked
+        // TODO add your handling code here:
+        String dept_name = departmentNameTex.getText();
+        
+        DepartmentService.addDepartment(dept_name);
+        refreshHolidayTable();
+    }//GEN-LAST:event_AddDepartmentBtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2772,6 +2858,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddDepartmentBtn;
     private javax.swing.JButton AddLeaveReqButton;
     private javax.swing.JLabel AddressLabel;
     private javax.swing.JTextField AddressText;
@@ -2783,6 +2870,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboradTab;
     private javax.swing.JLabel DepartmentLabel;
     private javax.swing.JPanel DepartmentTab;
+    private javax.swing.JTable DepartmentTable;
     private javax.swing.JPanel Departmenttab;
     private javax.swing.JLabel EmailLabel;
     private javax.swing.JTextField EmailText;
@@ -2831,6 +2919,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel attendancePanel;
     private javax.swing.JLabel attendanceSummaryLabel;
     private javax.swing.JButton deleteHolidayButton;
+    private javax.swing.JTextField departmentNameTex;
     private javax.swing.JButton editHolidayButton;
     private javax.swing.JTable employeeOvertimeTable;
     private javax.swing.JTable employeeRequestLeaveTable;
@@ -2878,6 +2967,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2912,6 +3003,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList<String> leaveBalanceList;
