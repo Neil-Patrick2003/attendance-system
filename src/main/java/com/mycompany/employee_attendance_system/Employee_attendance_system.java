@@ -4,7 +4,6 @@
 package com.mycompany.employee_attendance_system;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -14,7 +13,14 @@ public class Employee_attendance_system {
 
     public static void main(String[] args) {
 
-        List<Employee> employees = EmployeeService.getAllEmployees();
+//        HolidayService.createHoliday(new Date(124, 0, 1), "New year");
+//        List<Holiday> holidays = HolidayService.getHolidays();
+//
+//        for (int i = 0; i < holidays.size(); i++) {
+//            Holiday holiday = holidays.get(i);
+//            HolidayService.updateHolidayById(holiday.holiday_id, new Date(), "Updated");
+//            HolidayService.deleteHolidayById(holiday.holiday_id);
+//        }
         
 //        AttendanceRecordService.getCurrentAttendanceRecordByEmployeeId(1, new Date());
         
