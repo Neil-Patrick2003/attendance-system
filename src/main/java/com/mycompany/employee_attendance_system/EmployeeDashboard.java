@@ -1629,6 +1629,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        DepartmentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DepartmentTableMouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(DepartmentTable);
 
         departmentFormLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2834,6 +2839,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void departmentSubmitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentSubmitBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_departmentSubmitBtnMouseClicked
+
+    private void DepartmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DepartmentTableMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_DepartmentTableMouseClicked
 
     /**
      * @param args the command line arguments
