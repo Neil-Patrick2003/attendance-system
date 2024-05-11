@@ -5,6 +5,9 @@
 package com.mycompany.employee_attendance_system;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.Locale;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -50,7 +54,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             adminUpdateDeptBox.addItem(departments.get(i).department_name);
         }
 
-        //refreshLeaveRequestList();
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                TImeLabel.setText(dateFormat.format(new Date()));
+            }
+        });
+        timer.start();
     }
 
     public void setAuthenticatedEmployee(Employee employee) {
@@ -67,7 +78,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         updateProfileDeptCombobox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         adminUpdateDeptBox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         updateProfileSubmitBtn.setVisible(false);
-        
+
         AdminButton.setVisible(employee.is_admin);
         AdminButton.setEnabled(employee.is_admin);
 
@@ -2317,7 +2328,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DefaultTableModel summaryDefaultTableModel = (DefaultTableModel) AttendanceSummaryTable.getModel();
         int employeeIdFilter = 0;
         int index = EmployeeFilterComboBox.getSelectedIndex();
-        
+
         employeeSummaryLabel.setText("");
 
         if (index > 0 && this.employees.size() >= index) {
@@ -2363,9 +2374,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     totalOvertimeHours = totalOvertimeHours + attendanceRecordSummary.getTotalRenderedOvertime();
                 }
             }
-            
+
             if (employeeIdFilter > 0) {
-                employeeSummaryLabel.setText("Present: " + totalPresentDays + "   |   Holiday: " + totalHolidayDays + "   |   On Leave: " + totalLeaveDays + "   |   Absent: "+ totalAbsentDays + "   |   OT (hrs): " + totalOvertimeHours);
+                employeeSummaryLabel.setText("Present: " + totalPresentDays + "   |   Holiday: " + totalHolidayDays + "   |   On Leave: " + totalLeaveDays + "   |   Absent: " + totalAbsentDays + "   |   OT (hrs): " + totalOvertimeHours);
             }
 
         }
@@ -2827,8 +2838,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         if (overtimeRequest.status.equals("Approved")) {
 
             Object[] options = {"Cancel request"
-                    + ""
-                    + "", "Close"};
+                + ""
+                + "", "Close"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
             if (choice == 0) {
