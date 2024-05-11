@@ -2285,6 +2285,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DefaultTableModel summaryDefaultTableModel = (DefaultTableModel) AttendanceSummaryTable.getModel();
         int employeeIdFilter = 0;
         int index = EmployeeFilterComboBox.getSelectedIndex();
+        
+        employeeSummaryLabel.setText("");
 
         if (index > 0 && this.employees.size() >= index) {
             Employee employee = this.employees.get(index - 1);
@@ -2294,6 +2296,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         Date start_date = summaryRecordStartdate.getDate();
         Date end_date = summaryRecordEndDate.getDate();
 
+        int totalPresentDays = 0;
+        int totalAbsentDays = 0;
+        int totalHolidayDays = 0;
+        int totalLeaveDays = 0;
+        float totalOvertimeHours = 0;
+
         if (start_date != null && end_date != null) {
             List<AttendanceRecordSummary> attendanceRecordSummarys = AttendanceRecordService.getRecords(start_date, end_date, employeeIdFilter);
             summaryDefaultTableModel.setRowCount(0);
@@ -2302,7 +2310,32 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 AttendanceRecordSummary attendanceRecordSummary = attendanceRecordSummarys.get(i);
                 Object[] rowData = {attendanceRecordSummary.getFormattedDate(), attendanceRecordSummary.employee.id, attendanceRecordSummary.employee.getFullName(), attendanceRecordSummary.remarks, attendanceRecordSummary.totalLoggedHours, attendanceRecordSummary.getTotalWorkingHours(), attendanceRecordSummary.approvedOvertimeHours, attendanceRecordSummary.getTotalRenderedOvertime()};
                 summaryDefaultTableModel.addRow(rowData);
+
+                if (employeeIdFilter > 0) {
+                    if (attendanceRecordSummary.remarks.equals("Present")) {
+                        totalPresentDays++;
+                    }
+
+                    if (attendanceRecordSummary.remarks.equals("Holiday")) {
+                        totalHolidayDays++;
+                    }
+
+                    if (attendanceRecordSummary.remarks.equals("On leave")) {
+                        totalLeaveDays++;
+                    }
+
+                    if (attendanceRecordSummary.remarks.equals("Absent")) {
+                        totalAbsentDays++;
+                    }
+
+                    totalOvertimeHours = totalOvertimeHours + attendanceRecordSummary.getTotalRenderedOvertime();
+                }
             }
+            
+            if (employeeIdFilter > 0) {
+                employeeSummaryLabel.setText("Present: " + totalPresentDays + " | Holiday: " + totalHolidayDays + " | On Leave: " + totalLeaveDays + " | Absent: "+ totalAbsentDays + " | OT (hrs): " + totalOvertimeHours);
+            }
+
         }
 
     }
@@ -2880,7 +2913,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         } else {
             DepartmentService.updateDepartment(this.selectedDepartment.department_id, dept_name);
         }
-        
+
         refreshDepartmentTable();
 
         departmentNameTex.setText("");
