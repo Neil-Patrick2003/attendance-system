@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -2333,7 +2334,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             }
             
             if (employeeIdFilter > 0) {
-                employeeSummaryLabel.setText("Present: " + totalPresentDays + " | Holiday: " + totalHolidayDays + " | On Leave: " + totalLeaveDays + " | Absent: "+ totalAbsentDays + " | OT (hrs): " + totalOvertimeHours);
+                employeeSummaryLabel.setText("Present: " + totalPresentDays + "   |   Holiday: " + totalHolidayDays + "   |   On Leave: " + totalLeaveDays + "   |   Absent: "+ totalAbsentDays + "   |   OT (hrs): " + totalOvertimeHours);
             }
 
         }
@@ -2756,7 +2757,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
 
-        if (overtimeRequest.status.equals("For approval")) {
+        if (overtimeRequest.status.toLowerCase(Locale.ITALY).equals("for approval")) {
             Object[] option = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
             if (choice == 0) {
