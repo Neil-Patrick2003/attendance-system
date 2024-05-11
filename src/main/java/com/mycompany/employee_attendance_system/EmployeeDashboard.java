@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.plaf.nimbus.NimbusStyle;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -69,14 +68,16 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         if (this.currentAttendanceRecord == null) {
             attendanceButton.setText("Time In");
             attendanceButton.setEnabled(true);
+            attendanceSummaryLabel.setText("You dont have attendance record today. Dont forget to time in.");
         } else {
-            System.out.println(this.currentAttendanceRecord.timeOut);
             if (this.currentAttendanceRecord.timeOut == null) {
                 attendanceButton.setText("Time Out");
                 attendanceButton.setEnabled(true);
+                attendanceSummaryLabel.setText("Dont forget to time out today. Time IN: " + this.currentAttendanceRecord.getFormattedTimeIn());
             } else {
                 attendanceButton.setText("Time In");
                 attendanceButton.setEnabled(false);
+                attendanceSummaryLabel.setText("Time IN: " + this.currentAttendanceRecord.getFormattedTimeIn() + " Time Out: " + this.currentAttendanceRecord.getFormattedTimeOut());
             }
         }
 

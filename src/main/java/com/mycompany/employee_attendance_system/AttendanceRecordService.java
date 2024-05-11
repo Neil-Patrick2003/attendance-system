@@ -25,7 +25,7 @@ public class AttendanceRecordService {
     private static final String TIME_OUT_COLUMN = "time_out";
     private static final String EMPLOYEE_ID_COLUMN = "employee_id";
 
-    public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat dayFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void createAttendanceRecord(Date timeIn, int employee_id) {
@@ -68,8 +68,22 @@ public class AttendanceRecordService {
             // Process the results
             while (resultSet.next()) {
                 int recordId = resultSet.getInt(ATTENDANCE_RECORD_ID_COLUMN);
-                Date timein = resultSet.getDate(TIME_IN_COLUMN);
-                Date timeOut = resultSet.getDate(TIME_OUT_COLUMN);
+                Date timein = null;
+                Date timeOut = null;
+
+                if (resultSet.getString(TIME_IN_COLUMN) != null) {
+                    try {
+                        timein = dateFormatter.parse(resultSet.getString(TIME_IN_COLUMN));
+                    } catch (Exception e) {
+                    }
+                }
+
+                if (resultSet.getString(TIME_OUT_COLUMN) != null) {
+                    try {
+                        timeOut = dateFormatter.parse(resultSet.getString(TIME_OUT_COLUMN));
+                    } catch (Exception e) {
+                    }
+                }
 
                 attendanceRecord = new AttendanceRecord(recordId, timein, timeOut, employee_id);
             }
@@ -96,137 +110,137 @@ public class AttendanceRecordService {
             statement.executeUpdate(updateQuery);
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle SQL exceptions 
+            e.printStackTrace(); // Handle SQL exceptions
         } finally {
             AccessDatabaseConnector.closeConnection(conn);
         }
     }
-    
-    public static List getRecords (Date start_date, Date end_date) {
-        String sqlScript = 
-            "WITH RECURSIVE DateRange AS (" +
-            "  SELECT " +
-            "    DATE '2024-05-01' AS dateRef " +
-            "  UNION ALL " +
-            "  SELECT " +
-            "    dateRef + INTERVAL '1' DAY " +
-            "  FROM " +
-            "    DateRange " +
-            "  WHERE " +
-            "    dateRef < DATE '2024-05-15'" +
-            ") " +
-            "SELECT " +
-            "  employees.*, " +
-            "  dateRef as date, " +
-            "  ( " +
-            "    select " +
-            "      attendance_records.time_in " +
-            "    from " +
-            "      attendance_records " +
-            "    where " +
-            "      attendance_records.employee_id = employees.employee_id " +
-            "      and DATE(attendance_records.time_in) = dateRef is not null " +
-            "    LIMIT " +
-            "      1 " +
-            "  ) as time_in, " +
-            "  ( " +
-            "    select " +
-            "      attendance_records.time_out " +
-            "    from " +
-            "      attendance_records " +
-            "    where " +
-            "      attendance_records.employee_id = employees.employee_id " +
-            "      and DATE(attendance_records.time_in) = dateRef is not null " +
-            "    LIMIT " +
-            "      1 " +
-            "  ) as time_out, " +
-            "  ( " +
-            "    Case when ( " +
-            "      select " +
-            "        exists ( " +
-            "          select " +
-            "            * " +
-            "          from " +
-            "            leave_requests " +
-            "          where " +
-            "            leave_requests.employee_id = employees.employee_id " +
-            "            and dateRef <= leave_requests.end_date " +
-            "            and dateRef >= leave_requests.start_date " +
-            "        ) " +
-            "    ) THEN 'On leave' when ( " +
-            "      dateRef > CURDATE() " +
-            "    ) THEN null when ( " +
-            "      select " +
-            "        exists ( " +
-            "          select " +
-            "            * " +
-            "          from " +
-            "            attendance_records " +
-            "          where " +
-            "            attendance_records.employee_id = employees.employee_id " +
-            "            and DATE(attendance_records.time_in) = dateRef " +
-            "        ) " +
-            "    ) THEN 'Present' when ( " +
-            "      select " +
-            "        not exists ( " +
-            "          select " +
-            "            * " +
-            "          from " +
-            "            attendance_records " +
-            "          where " +
-            "            attendance_records.employee_id = employees.employee_id " +
-            "            and DATE(attendance_records.time_in) = dateRef " +
-            "        ) " +
-            "    ) THEN 'Absent' ELSE null END " +
-            "  ) as remarks, " +
-            "  case when ( " +
-            "    select " +
-            "      exists ( " +
-            "        select " +
-            "          * " +
-            "        from " +
-            "          attendance_records " +
-            "        where " +
-            "          attendance_records.employee_id = employees.employee_id " +
-            "          and DATE(attendance_records.time_in) = dateRef " +
-            "          and attendance_records.time_out is not null " +
-            "      ) " +
-            "  ) THEN ( " +
-            "    select " +
-            "      ROUND( " +
-            "        TIMESTAMPDIFF( " +
-            "          SECOND, attendance_records.time_in, " +
-            "          attendance_records.time_out " +
-            "        ) / 3600.0, " +
-            "        2 " +
-            "      ) " +
-            "    from " +
-            "      attendance_records " +
-            "    where " +
-            "      attendance_records.employee_id = employees.employee_id " +
-            "      and DATE(attendance_records.time_in) = dateRef " +
-            "      and attendance_records.time_out is not null " +
-            "    LIMIT " +
-            "      1 " +
-            "  ) else null end as total_logged_hours, " +
-            "  ( " +
-            "    Select " +
-            "      no_of_hours " +
-            "    from " +
-            "      overtime_requests " +
-            "    where " +
-            "      overtime_requests.employee_id = employees.employee_id " +
-            "      and overtime_requests.`date` = dateRef " +
-            "      and overtime_requests.status = 'Approved' " +
-            "    LIMIT " +
-            "      1 " +
-            "  ) as approved_overtime_hours " +
-            "FROM " +
-            "  employees " +
-            "  JOIN DateRange d ON 1 = 1 " +
-            "order by " +
-            "  dateRef";
-        
+
+    public static List getRecords(Date start_date, Date end_date) {
+        String sqlScript
+                = "WITH RECURSIVE DateRange AS ("
+                + "  SELECT "
+                + "    DATE '2024-05-01' AS dateRef "
+                + "  UNION ALL "
+                + "  SELECT "
+                + "    dateRef + INTERVAL '1' DAY "
+                + "  FROM "
+                + "    DateRange "
+                + "  WHERE "
+                + "    dateRef < DATE '2024-05-15'"
+                + ") "
+                + "SELECT "
+                + "  employees.*, "
+                + "  dateRef as date, "
+                + "  ( "
+                + "    select "
+                + "      attendance_records.time_in "
+                + "    from "
+                + "      attendance_records "
+                + "    where "
+                + "      attendance_records.employee_id = employees.employee_id "
+                + "      and DATE(attendance_records.time_in) = dateRef is not null "
+                + "    LIMIT "
+                + "      1 "
+                + "  ) as time_in, "
+                + "  ( "
+                + "    select "
+                + "      attendance_records.time_out "
+                + "    from "
+                + "      attendance_records "
+                + "    where "
+                + "      attendance_records.employee_id = employees.employee_id "
+                + "      and DATE(attendance_records.time_in) = dateRef is not null "
+                + "    LIMIT "
+                + "      1 "
+                + "  ) as time_out, "
+                + "  ( "
+                + "    Case when ( "
+                + "      select "
+                + "        exists ( "
+                + "          select "
+                + "            * "
+                + "          from "
+                + "            leave_requests "
+                + "          where "
+                + "            leave_requests.employee_id = employees.employee_id "
+                + "            and dateRef <= leave_requests.end_date "
+                + "            and dateRef >= leave_requests.start_date "
+                + "        ) "
+                + "    ) THEN 'On leave' when ( "
+                + "      dateRef > CURDATE() "
+                + "    ) THEN null when ( "
+                + "      select "
+                + "        exists ( "
+                + "          select "
+                + "            * "
+                + "          from "
+                + "            attendance_records "
+                + "          where "
+                + "            attendance_records.employee_id = employees.employee_id "
+                + "            and DATE(attendance_records.time_in) = dateRef "
+                + "        ) "
+                + "    ) THEN 'Present' when ( "
+                + "      select "
+                + "        not exists ( "
+                + "          select "
+                + "            * "
+                + "          from "
+                + "            attendance_records "
+                + "          where "
+                + "            attendance_records.employee_id = employees.employee_id "
+                + "            and DATE(attendance_records.time_in) = dateRef "
+                + "        ) "
+                + "    ) THEN 'Absent' ELSE null END "
+                + "  ) as remarks, "
+                + "  case when ( "
+                + "    select "
+                + "      exists ( "
+                + "        select "
+                + "          * "
+                + "        from "
+                + "          attendance_records "
+                + "        where "
+                + "          attendance_records.employee_id = employees.employee_id "
+                + "          and DATE(attendance_records.time_in) = dateRef "
+                + "          and attendance_records.time_out is not null "
+                + "      ) "
+                + "  ) THEN ( "
+                + "    select "
+                + "      ROUND( "
+                + "        TIMESTAMPDIFF( "
+                + "          SECOND, attendance_records.time_in, "
+                + "          attendance_records.time_out "
+                + "        ) / 3600.0, "
+                + "        2 "
+                + "      ) "
+                + "    from "
+                + "      attendance_records "
+                + "    where "
+                + "      attendance_records.employee_id = employees.employee_id "
+                + "      and DATE(attendance_records.time_in) = dateRef "
+                + "      and attendance_records.time_out is not null "
+                + "    LIMIT "
+                + "      1 "
+                + "  ) else null end as total_logged_hours, "
+                + "  ( "
+                + "    Select "
+                + "      no_of_hours "
+                + "    from "
+                + "      overtime_requests "
+                + "    where "
+                + "      overtime_requests.employee_id = employees.employee_id "
+                + "      and overtime_requests.`date` = dateRef "
+                + "      and overtime_requests.status = 'Approved' "
+                + "    LIMIT "
+                + "      1 "
+                + "  ) as approved_overtime_hours "
+                + "FROM "
+                + "  employees "
+                + "  JOIN DateRange d ON 1 = 1 "
+                + "order by "
+                + "  dateRef";
+
         List<AttendanceRecordSummary> records = new ArrayList<>();
 
         Connection conn = AccessDatabaseConnector.connect();
@@ -260,9 +274,9 @@ public class AttendanceRecordService {
 
                 Employee employee = new Employee(employeeId, last_name, first_name, email, phone_number, address, username, password, is_admin, hiring_date, department_id, position);
                 AttendanceRecordSummary summary = new AttendanceRecordSummary(date, timeIn, timeOut, remarks, totalLoggedHours, approvedOvertimeHours);
-                
+
                 summary.setEmployee(employee);
-                
+
                 records.add(summary);
             }
 
