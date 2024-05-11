@@ -2190,9 +2190,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         int i = adminOvertimeListTable.getSelectedRow();
         int overtimeRequestId = (int) adminOvertimeListTable.getValueAt(i, 0);
 
-        OvertimeRequest overtimeRequest =   OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);//.getLeaveRequestById(leaveRequestId);
+        OvertimeRequest overtimeRequest = OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);//.getLeaveRequestById(leaveRequestId);
         System.out.println("ID:   " + overtimeRequestId);
-        
+
         StringBuilder message = new StringBuilder();
         message.append("___________________________________").append("\n");
         message.append("Employee : " + overtimeRequest.employee.getFullName()).append("\n\n");
@@ -2200,31 +2200,74 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("Date : " + overtimeRequest.date).append("\n");
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
-        
-        if(overtimeRequest.status.equals("For approval")){
+
+        if (overtimeRequest.status.equals("For approval")) {
             Object[] option = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
-            if(choice == 0){
+            if (choice == 0) {
                 OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequestId, "Approved", overtimeRequest.notes, overtimeRequest.employee_id);
                 refreshAdminOvertimeRequestList();
-            }
-            else{
+            } else {
                 OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequestId, "Rejected", overtimeRequest.notes, overtimeRequest.employee_id);
                 refreshAdminOvertimeRequestList();
             }
-        }else{
-             Object[] option2 = {"Okay"};
+        } else {
+            Object[] option2 = {"Okay"};
             int choice2 = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option2, option2[0]);
-            if(choice2 == 0){
+            if (choice2 == 0) {
                 refreshAdminOvertimeRequestList();
             }
         }
-        
-        
+
+
     }//GEN-LAST:event_adminOvertimeListTableMouseClicked
 
     private void employeeOvertimeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeeOvertimeTableMouseClicked
         // TODO add your handling code here:
+        int i = employeeOvertimeTable.getSelectedRow();
+        int overtimeRequestId = (int) adminOvertimeListTable.getValueAt(i, 0);
+
+        OvertimeRequest overtimeRequest = OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);
+
+        StringBuilder message = new StringBuilder();
+        message.append("           MY OVERTIME REQUEST        ").append("\n");
+        message.append("______________________________________").append("\n\n");
+        message.append("Date : " + overtimeRequest.date).append("\n");
+        message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
+        message.append("Status: " + overtimeRequest.status).append("\n");
+        message.append("Notes : " + overtimeRequest.notes).append("\n");
+
+        boolean overtimeNotStarted = overtimeRequest.date.after(new Date());
+
+        System.out.println(overtimeNotStarted);
+
+        if (overtimeRequest.status.equals("Approved") && overtimeNotStarted) {
+
+            Object[] options = {"Cancel Leave", "Close"};
+            int choice = JOptionPane.showOptionDialog(null, message.toString(), "leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            if (choice == 0) {
+                OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequest.noOfHours, "Cancelled", overtimeRequest.notes, overtimeRequest.employee_id);
+                refreshOvertimeRequestList();
+            } else {
+                refreshOvertimeRequestList();
+            }
+        } else if (overtimeRequest.status.toLowerCase().equals("for approval")) {
+
+            Object[] options2 = {"Delete Request", "Cancel"};
+            int choice2 = JOptionPane.showOptionDialog(null, message.toString(), "Delete Request.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
+
+            if (choice2 == 0) {
+                OvertimeRequestService.deleteOvertimeRequestById(overtimeRequestId);
+                refreshOvertimeRequestList();
+            }
+
+        } else {
+            Object[] options2 = {"Okay"};
+            int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
+            refreshOvertimeRequestList();
+        }
+
     }//GEN-LAST:event_employeeOvertimeTableMouseClicked
 
     /**
