@@ -253,6 +253,7 @@ public class AddLeaveReqForm extends javax.swing.JFrame {
         String notes = noteTextArea.getText();
 
         LeaveRequestService.addLeaveReq(sqlStartDate, sqlEndDate, "For Approval", notes, leaveType.leave_type_id, this.authenticatedEmployee.id);
+        this.dispose();
 
 //        if (FirstNameText.getText().equals("") || FirstNameText.getText().equals("") || EmailText.getText().equals("") || PhoneText.getText().equals("") || AddressText.getText().equals("") || UsernameText.getText().equals("") || PositionText.getText().equals("") || department == null) {
 //            JOptionPane.showMessageDialog(null, "Please Complete the form.");
