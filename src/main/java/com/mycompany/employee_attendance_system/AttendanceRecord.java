@@ -26,9 +26,4 @@ public class AttendanceRecord {
         this.timeOut = timeOut;
         this.employee_id = employee_id;
     }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
 }

@@ -23,7 +23,7 @@ CREATE TABLE `attendance_records` (
   `attendance_record_id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `employee_id` bigint unsigned NOT NULL,
   `time_in` datetime NOT NULL,
-  `time_out` datetime NOT NULL,
+  `time_out` datetime DEFAULT NULL,
   PRIMARY KEY (`attendance_record_id`),
   KEY `attendance_records_employee_id_foreign` (`employee_id`),
   CONSTRAINT `attendance_records_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
