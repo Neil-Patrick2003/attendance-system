@@ -200,7 +200,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void signup_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signup_buttonMouseClicked
         // TODO add your handling code here:
         // Create usa new JFrame to contain the EmployeeSignUp panel
-        JFrame signupFrame = new JFrame("Film Equipment Rental Service");
+        JFrame signupFrame = new JFrame("Signup");
         signupFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         signupFrame.add(new EmployeeSignUp());
         signupFrame.pack(); // Resize the frame to fit the component

@@ -37,6 +37,7 @@ public class OvertimeRequestService {
             try (Statement statement = conn.createStatement()) {
                 // Execute an INSERT query
                 String insertQuery = "INSERT INTO " + OVERTIME_REQUESTS_TABLE + " (" + DATE_COLUMN + ", " + NO_OF_HOURS_COLUMN + ", " + STATUS_COLUMN + ", " + NOTES_COLUMN + ", " + EMPLOYEE_ID_COLUMN + " ) VALUES ('" + dateFormatter.format(date) + "', '" + noOfHours + "', '" + status + "', '" + notes + "', '" + employee_id + "');";
+               
                 System.out.println(insertQuery);
                 int rowsAffected = statement.executeUpdate(insertQuery);
                 // Check the number of rows affected
