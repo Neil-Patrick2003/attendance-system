@@ -4,7 +4,9 @@
  */
 package com.mycompany.employee_attendance_system;
 
-import java.sql.Date;
+import java.util.Date;
+
+
 
 /**
  *
