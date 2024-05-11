@@ -93,9 +93,9 @@ CREATE TABLE `leave_requests` (
 DROP TABLE IF EXISTS `overtime_requests`;
 CREATE TABLE `overtime_requests` (
   `request_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `date` date NOT NULL,
+  `no_of_hours` int NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'For approval',
   `notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `employee_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`request_id`),
