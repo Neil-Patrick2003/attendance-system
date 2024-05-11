@@ -5,6 +5,7 @@
 package com.mycompany.employee_attendance_system;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -2056,6 +2057,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         resetColor(OverTimeButton);
         resetColor(DashboardButton);
         refreshLeaveRequestList();
+        this.refreshAttendanceRecord();
 
     }//GEN-LAST:event_AdminButtonMouseClicked
 
