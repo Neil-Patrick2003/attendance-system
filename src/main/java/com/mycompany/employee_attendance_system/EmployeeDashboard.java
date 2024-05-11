@@ -236,7 +236,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         summaryRecordEndDate = new com.toedter.calendar.JDateChooser();
         EmployeeFilterComboBox = new javax.swing.JComboBox<>();
         jPanel21 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
+        employeeSummaryLabel = new javax.swing.JLabel();
         HolidayTab = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         holidayInputName = new javax.swing.JTextField();
@@ -1409,8 +1409,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
         jPanel21.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel47.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel47.setText("Summary");
+        employeeSummaryLabel.setForeground(new java.awt.Color(0, 0, 0));
+        employeeSummaryLabel.setText("Summary");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -1418,14 +1418,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(employeeSummaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel47)
+                .addComponent(employeeSummaryLabel)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -3016,6 +3016,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JButton editHolidayButton;
     private javax.swing.JTable employeeOvertimeTable;
     private javax.swing.JTable employeeRequestLeaveTable;
+    private javax.swing.JLabel employeeSummaryLabel;
     private com.toedter.calendar.JDateChooser holidayDatePicker;
     private javax.swing.JTextField holidayInputName;
     private javax.swing.JCheckBox isAdminTextBox;
@@ -3060,7 +3061,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
