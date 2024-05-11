@@ -18,10 +18,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Neil Patrick
  */
 public class EmployeeDashboard extends javax.swing.JFrame {
-    
+
     Employee authenticatedEmployee;
     Employee selectedEmployee;
     Holiday selectedHoliday;
+    Department selectedDepartment;
     AttendanceRecord currentAttendanceRecord;
     List<Employee> employees = new ArrayList<>();
 
@@ -32,17 +33,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         initComponents();
         summaryRecordStartdate.setDate(new Date(new Date().getYear(), new Date().getMonth(), 1));
         summaryRecordEndDate.setDate(new Date());
-        
+
         refreshEmployeeList();
         refreshAuthEmployee();
         refreshAdminOvertimeRequestList();
-        
+
         if (this.authenticatedEmployee != null) {
             employeeRefreshLeaveRequestList();
         }
-        
+
         List<Department> departments = DepartmentService.getAllDepartments();
-        
+
         for (int i = 0; i < departments.size(); i++) {
             updateProfileDeptCombobox.addItem(departments.get(i).department_name);
             adminUpdateDeptBox.addItem(departments.get(i).department_name);
@@ -50,7 +51,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         //refreshLeaveRequestList();
     }
-    
+
     public void setAuthenticatedEmployee(Employee employee) {
         this.authenticatedEmployee = employee;
         employeeRefreshLeaveRequestList();
@@ -65,14 +66,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         updateProfileDeptCombobox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         adminUpdateDeptBox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         updateProfileSubmitBtn.setVisible(false);
-        
+
         this.refreshCurrentAttendanceRecord();
         DefaultListModel leaveBalanceListModel = new DefaultListModel();
-        
+
         String Title = "  Leave Balances";
-        
+
         leaveBalanceListModel.addElement(Title);
-        
+
         List<LeaveType> leaveTypes = LeaveTypeService.getLeaveTypesWithEmployeeBalance(this.authenticatedEmployee.id);
         System.out.println("size  " + leaveTypes.size());
         for (int i = 0; i < leaveTypes.size(); i++) {
@@ -80,11 +81,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             leaveBalanceListModel.addElement("  " + type.name + "  :     " + type.employeeBalance + " balance");
         }
         leaveBalanceList.setModel(leaveBalanceListModel);
-        
+
         DefaultListModel profileInformationListModel = new DefaultListModel();
-        
+
         profileInformationListModel.addElement("  " + authenticatedEmployee.getFullName());
-        
+
         profileInformationListModel.addElement("  " + authenticatedEmployee.email);
         profileInformationListModel.addElement("  " + authenticatedEmployee.phone_number);
         profileInformationListModel.addElement("  " + authenticatedEmployee.department.department_name);
@@ -93,14 +94,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         profileInformationListModel.addElement("  " + authenticatedEmployee.username);
         profileInformationListModel.addElement("  ");
         profileInformationListModel.addElement("  " + authenticatedEmployee.hiring_date);
-        
+
         MyInformationList.setModel(profileInformationListModel);
-        
+
     }
-    
+
     public void refreshCurrentAttendanceRecord() {
         this.currentAttendanceRecord = AttendanceRecordService.getCurrentAttendanceRecordByEmployeeId(this.authenticatedEmployee.id, new Date());
-        
+
         if (this.currentAttendanceRecord == null) {
             attendanceButton.setText("Time In");
             attendanceButton.setEnabled(true);
@@ -116,15 +117,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 attendanceSummaryLabel.setText("Time IN: " + this.currentAttendanceRecord.getFormattedTimeIn() + " Time Out: " + this.currentAttendanceRecord.getFormattedTimeOut());
             }
         }
-        
+
         this.validate();
     }
-    
+
     private void refreshAdminOvertimeRequestList() {
         DefaultTableModel adminOvertimeRequesttTableModel = (DefaultTableModel) adminOvertimeListTable.getModel();
         List<OvertimeRequest> overtimeRequests = OvertimeRequestService.getOvertimeRequests();
         adminOvertimeRequesttTableModel.setRowCount(0);
-        
+
         for (int i = 0; i < overtimeRequests.size(); i++) {
             OvertimeRequest overtimeRequest = overtimeRequests.get(i);
             Object[] rowData = {overtimeRequest.request_id, overtimeRequest.date, overtimeRequest.noOfHours, overtimeRequest.status, overtimeRequest.notes, overtimeRequest.employee.getFullName()};
@@ -133,9 +134,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -2237,17 +2236,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             holidayTableModel.addRow(rowData);
         }
     }
-    
-    private void refreshDepartmentTable(){
-        DefaultTableModel departmentDefaultTableModel  =(DefaultTableModel) DepartmentTable.getModel();
+
+    private void refreshDepartmentTable() {
+        DefaultTableModel departmentDefaultTableModel = (DefaultTableModel) DepartmentTable.getModel();
         List<Department> departments = DepartmentService.getAllDepartments();
         departmentDefaultTableModel.setRowCount(0);
-        
-        for (int i = 0; i <  departments.size(); i++){
+
+        for (int i = 0; i < departments.size(); i++) {
             Department department = departments.get(i);
             Object[] rowdata = {department.department_id, department.department_name};
             departmentDefaultTableModel.addRow(rowdata);
-            
+
         }
     }
 
@@ -2300,50 +2299,50 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DefaultTableModel leaveRequesttTableModel = (DefaultTableModel) LeaveRequestAdminTable.getModel();
         List<LeaveRequest> leaveRequests = LeaveRequestService.getAllLeaveRequests();
         leaveRequesttTableModel.setRowCount(0);
-        
+
         System.out.println(leaveRequests.size());
-        
+
         for (int i = 0; i < leaveRequests.size(); i++) {
             LeaveRequest leaveRequest = leaveRequests.get(i);
             Object[] rowData = {leaveRequest.request_id, leaveRequest.getFormattedStartDate(), leaveRequest.getFormattedEndDate(), leaveRequest.status, leaveRequest.notes, leaveRequest.employee.getFullName(), leaveRequest.leaveType.name};
             leaveRequesttTableModel.addRow(rowData);
         }
     }
-    
+
     private void refreshOvertimeRequestList() {
         DefaultTableModel overtimeRequesttTableModel = (DefaultTableModel) employeeOvertimeTable.getModel();
         List<OvertimeRequest> overtimeRequests = OvertimeRequestService.getOvertimeRequestsByEmployeeId(this.authenticatedEmployee.id);
         overtimeRequesttTableModel.setRowCount(0);
-        
+
         for (int i = 0; i < overtimeRequests.size(); i++) {
             OvertimeRequest overtimeRequest = overtimeRequests.get(i);
             Object[] rowData = {overtimeRequest.request_id, overtimeRequest.date, overtimeRequest.noOfHours, overtimeRequest.status, overtimeRequest.notes};
             overtimeRequesttTableModel.addRow(rowData);
         }
     }
-    
+
     public void employeeRefreshLeaveRequestList() {
         DefaultTableModel employeeLeaveRequestDefaultTableModel = (DefaultTableModel) employeeRequestLeaveTable.getModel();
         List<LeaveRequest> leaveRequests = LeaveRequestService.getAllLeaveRequestsByEmployeeId(authenticatedEmployee.id);
         employeeLeaveRequestDefaultTableModel.setRowCount(0);
-        
+
         System.out.println(leaveRequests.size());
-        
+
         for (int i = 0; i < leaveRequests.size(); i++) {
             LeaveRequest leaveRequest = leaveRequests.get(i);
             Object[] rowData = {leaveRequest.request_id, leaveRequest.getFormattedStartDate(), leaveRequest.getFormattedEndDate(), leaveRequest.status, leaveRequest.notes, leaveRequest.leaveType.name};
             employeeLeaveRequestDefaultTableModel.addRow(rowData);
         }
     }
-    
+
     void setColor(JPanel panel) {
         panel.setBackground(new Color(100, 206, 250));
     }
-    
+
     void resetColor(JPanel panel) {
         panel.setBackground(new Color(0, 200, 255));
     }
-    
+
     private void refreshAuthEmployee() {
         String last_name = (String) LastNameText.getText();
         String first_name = (String) FirstNameText.getText();
@@ -2351,9 +2350,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         String phone_number = (String) PhoneNumberText.getText();
         String address = (String) AddressText.getText();
         String position = (String) PositionText.getText();
-        
+
     }
-    
+
 
     private void DashboardButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardButtonMouseClicked
         // TODO add your handling code here:
@@ -2369,13 +2368,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void LeaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LeaveButtonMouseClicked
         // TODO add your handling code here:
         RIghtPanelTabbed.setSelectedIndex(2);
-        
+
         resetColor(DashboardButton);
         setColor(LeaveButton);
         resetColor(MyProfileButton);
         resetColor(AdminButton);
         resetColor(AdminButton);
-        
+
 
     }//GEN-LAST:event_LeaveButtonMouseClicked
 
@@ -2400,6 +2399,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         refreshLeaveRequestList();
         this.refreshAttendanceRecord();
         this.refreshHolidayTable();
+        this.refreshDepartmentTable();
 
     }//GEN-LAST:event_AdminButtonMouseClicked
 
@@ -2421,9 +2421,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         String address = (String) AddressText.getText();
         String position = (String) PositionText.getText();
         String department_name = updateProfileDeptCombobox.getSelectedItem().toString();
-        
+
         Department department = DepartmentService.getDepartmentByName(department_name);
-        
+
         if (last_name.isEmpty() || first_name.isEmpty() || email.isEmpty() || phone_number.isEmpty() || address.isEmpty()
                 || position.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please customer to update.");
@@ -2432,14 +2432,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             updateProfileEditBtn.setText("Edit Profile");
             updateProfileSubmitBtn.setVisible(false);
             updateProfileSubmitBtn.setBackground(new Color(255, 255, 255));
-            
+
             JOptionPane.showMessageDialog(rootPane, "Updated Successfully.");
             refreshAuthEmployee();
             this.setUpdateProfileFieldsEditableState(false);
-            
+
         }
     }//GEN-LAST:event_updateProfileSubmitBtnMouseClicked
-    
+
     public void setUpdateProfileFieldsEditableState(Boolean editable) {
         LastNameText.setEnabled(editable);
         FirstNameText.setEnabled(editable);
@@ -2448,7 +2448,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         AddressText.setEnabled(editable);
         PositionText.setEnabled(editable);
         updateProfileDeptCombobox.setEnabled(editable);
-        
+
     }
 
     private void updateProfileEditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProfileEditBtnActionPerformed
@@ -2458,7 +2458,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             updateProfileSubmitBtn.setVisible(false);
             updateProfileEditBtn.setText("Edit");
             this.setUpdateProfileFieldsEditableState(false);
-            
+
         } else {
             updateProfileSubmitBtn.setVisible(true);
             updateProfileEditBtn.setText(cancelText);
@@ -2476,15 +2476,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = AdminEmployeesTable.getSelectedRow();
         String email = AdminEmployeesTable.getValueAt(i, 3).toString();
-        
+
         this.selectedEmployee = EmployeeService.getEmployeeByField("email", email);
-        
+
         StringBuilder message = new StringBuilder();
         message.append("Email: ").append(email).append("\n\n");
-        
+
         Object[] options = {"Update Employee.", "Close"};
         int choice = JOptionPane.showOptionDialog(null, message.toString(), "Updated Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        
+
         if (choice == 0) {
             RIghtPanelTabbed.setSelectedIndex(4);
             viewEmployeeLastNameLabel.setText(this.selectedEmployee.last_name);
@@ -2503,9 +2503,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void LeaveRequestAdminTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LeaveRequestAdminTableMouseClicked
         int i = LeaveRequestAdminTable.getSelectedRow();
         int leaveRequestId = (int) LeaveRequestAdminTable.getValueAt(i, 0);
-        
+
         LeaveRequest leaveRequest = LeaveRequestService.getLeaveRequestById(leaveRequestId);
-        
+
         StringBuilder message = new StringBuilder();
         message.append("_______________________________________________ ").append("\n\n");
         message.append("Employee Name: ").append(leaveRequest.employee.getFullName()).append("\n");
@@ -2514,12 +2514,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("End Date: ").append(leaveRequest.getFormattedEndDate()).append("\n");
         message.append("Duration: ").append(leaveRequest.getDuration()).append(" day/s.").append("\n\n");
         message.append("Notes: ").append(leaveRequest.notes).append("\n");
-        
+
         if (leaveRequest.status.equals("For approval")) {
             System.out.println("ygtumtytytyyty");
             Object[] options = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            
+
             if (choice == 0) {
                 LeaveRequestService.updateLeaveRequest(leaveRequestId, leaveRequest.startDate, leaveRequest.endDate, "Approved", leaveRequest.notes, leaveRequest.leave_type_id, leaveRequest.employee_id);
                 refreshLeaveRequestList();
@@ -2530,7 +2530,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             Object[] options2 = {"Okay"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
         }
-        
+
 
     }//GEN-LAST:event_LeaveRequestAdminTableMouseClicked
 
@@ -2539,16 +2539,16 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         Date hiring_date = HiringdateChooser.getDate();
         String position = (String) adminUpdatePositionText.getText();
         String department_name = adminUpdateDeptBox.getSelectedItem().toString();
-        
+
         Department department = DepartmentService.getDepartmentByName(department_name);
-        
+
         if (position.isEmpty() || hiring_date == null || department_name == null) {
             JOptionPane.showMessageDialog(null, "Please complete the form.");
         } else {
             EmployeeService.updateEmployee(this.selectedEmployee.id, this.selectedEmployee.last_name, this.selectedEmployee.first_name, this.selectedEmployee.email, this.selectedEmployee.phone_number, this.selectedEmployee.address, this.selectedEmployee.username, this.selectedEmployee.password, isAdmin, hiring_date, department.department_id, position);
-            
+
             JOptionPane.showMessageDialog(rootPane, "Updated Successfully.");
-            
+
             refreshEmployeeList();
             RIghtPanelTabbed.setSelectedIndex(3);
         }
@@ -2571,9 +2571,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         int i = employeeRequestLeaveTable.getSelectedRow();
         int leaveRequestId = (int) employeeRequestLeaveTable.getValueAt(i, 0);
         System.out.println("pepaaaa");
-        
+
         LeaveRequest leaveRequest = LeaveRequestService.getLeaveRequestById(leaveRequestId);
-        
+
         StringBuilder message = new StringBuilder();
         message.append("_______________________________________________ ").append("\n");
         message.append("").append("\n");
@@ -2584,31 +2584,31 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("End Date: ").append(leaveRequest.getFormattedEndDate()).append("\n");
         message.append("Duration: ").append(leaveRequest.getDuration()).append(" day/s.").append("\n\n");
         message.append("Notes: ").append(leaveRequest.notes).append("\n");
-        
+
         boolean leaveNotStarted = leaveRequest.startDate.after(new Date());
-        
+
         System.out.println(leaveNotStarted);
-        
+
         if (leaveRequest.status.equals("Approved") && leaveNotStarted) {
-            
+
             Object[] options = {"Cancel Leave", "Close"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            
+
             if (choice == 0) {
                 LeaveRequestService.updateLeaveRequest(leaveRequestId, leaveRequest.startDate, leaveRequest.endDate, "Cancelled", leaveRequest.notes, leaveRequest.leave_type_id, leaveRequest.employee_id);
                 refreshLeaveRequestList();
             }
         } else if (leaveRequest.status.toLowerCase().equals("for approval")) {
             LeaveRequestService.deleteLeaveRequestById(leaveRequestId);
-            
+
             Object[] options = {"Delete Request", "Cancel"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Delete Request.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            
+
             if (choice == 0) {
                 LeaveRequestService.deleteLeaveRequestById(leaveRequestId);
                 refreshLeaveRequestList();
             }
-            
+
         } else {
             Object[] options2 = {"Okay"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
@@ -2635,17 +2635,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void attendanceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attendanceButtonMouseClicked
         if (attendanceButton.isEnabled()) {
-            
+
             attendanceButton.setEnabled(false);
-            
+
             if (this.currentAttendanceRecord != null) {
                 AttendanceRecordService.updateAttendanceRecord(this.currentAttendanceRecord.attendance_record_id, new Date());
             } else {
                 AttendanceRecordService.createAttendanceRecord(new Date(), this.authenticatedEmployee.id);
             }
-            
+
             JOptionPane.showMessageDialog(this, "Attendance successfully recorded.");
-            
+
             this.refreshCurrentAttendanceRecord();
         } else {
             JOptionPane.showMessageDialog(this, "Attendance for today already recorded. Time in again tomorow.");
@@ -2658,12 +2658,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         Date date = OvertimeDateChooser.getDate();
         int day = OvertimeHourCmboBx.getSelectedIndex() + 1;
-        
+
         String notes = OvertimeNotesText.getText();
-        
+
         OvertimeRequestService.createOvertimeRequest(date, day, "For approval", notes, this.authenticatedEmployee.id);
         OvertimeNotesText.setText("");
-        
+
 
     }//GEN-LAST:event_SubmitOvertimeMouseClicked
 
@@ -2680,10 +2680,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = adminOvertimeListTable.getSelectedRow();
         int overtimeRequestId = (int) adminOvertimeListTable.getValueAt(i, 0);
-        
+
         OvertimeRequest overtimeRequest = OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);//.getLeaveRequestById(leaveRequestId);
         System.out.println("ID:   " + overtimeRequestId);
-        
+
         StringBuilder message = new StringBuilder();
         message.append("___________________________________").append("\n");
         message.append("Employee : " + overtimeRequest.employee.getFullName()).append("\n\n");
@@ -2691,7 +2691,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("Date : " + overtimeRequest.date).append("\n");
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
-        
+
         if (overtimeRequest.status.equals("For approval")) {
             Object[] option = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
@@ -2709,7 +2709,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 refreshAdminOvertimeRequestList();
             }
         }
-        
+
 
     }//GEN-LAST:event_adminOvertimeListTableMouseClicked
 
@@ -2717,9 +2717,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = employeeOvertimeTable.getSelectedRow();
         int overtimeRequestId = (int) adminOvertimeListTable.getValueAt(i, 0);
-        
+
         OvertimeRequest overtimeRequest = OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);
-        
+
         StringBuilder message = new StringBuilder();
         message.append("           MY OVERTIME REQUEST        ").append("\n");
         message.append("______________________________________").append("\n\n");
@@ -2727,12 +2727,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Status: " + overtimeRequest.status).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
-        
+
         if (overtimeRequest.status.equals("Approved")) {
-            
+
             Object[] options = {"Cancel Leave", "Close"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            
+
             if (choice == 0) {
                 OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequest.noOfHours, "Cancelled", overtimeRequest.notes, overtimeRequest.employee_id);
                 refreshOvertimeRequestList();
@@ -2740,15 +2740,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 refreshOvertimeRequestList();
             }
         } else if (overtimeRequest.status.toLowerCase().equals("for approval")) {
-            
+
             Object[] options2 = {"Delete Request", "Cancel"};
             int choice2 = JOptionPane.showOptionDialog(null, message.toString(), "Delete Request.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
-            
+
             if (choice2 == 0) {
                 OvertimeRequestService.deleteOvertimeRequestById(overtimeRequestId);
                 refreshOvertimeRequestList();
             }
-            
+
         } else {
             Object[] options2 = {"Okay"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
@@ -2829,20 +2829,57 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_editHolidayButtonMouseClicked
 
     private void departmentDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentDeleteBtnMouseClicked
-        // TODO add your handling code here:
-        String dept_name = departmentNameTex.getText();
-        
-        DepartmentService.addDepartment(dept_name);
-        refreshHolidayTable();
+        departmentNameTex.setText("");
+        this.selectedDepartment = null;
+        departmentSubmitBtn.setText("Create");
+        departmentFormLabel.setText("Create");
     }//GEN-LAST:event_departmentDeleteBtnMouseClicked
 
     private void departmentSubmitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentSubmitBtnMouseClicked
-        // TODO add your handling code here:
+        String dept_name = departmentNameTex.getText();
+
+        if (dept_name.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please complete the form");
+
+            return;
+        }
+
+        if (this.selectedDepartment == null) {
+            DepartmentService.addDepartment(dept_name);
+        } else {
+            DepartmentService.updateDepartment(this.selectedDepartment.department_id, dept_name);
+        }
+        
+        refreshDepartmentTable();
+
+        departmentNameTex.setText("");
+        departmentSubmitBtn.setText("Create");
+        departmentFormLabel.setText("Create");
     }//GEN-LAST:event_departmentSubmitBtnMouseClicked
 
     private void DepartmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DepartmentTableMouseClicked
-        // TODO add your handling code here:
-        
+        int index = DepartmentTable.getSelectedRow();
+
+        if (index >= 0) {
+            int departmentId = (int) DepartmentTable.getValueAt(index, 0);
+
+            this.selectedDepartment = DepartmentService.getDepartmentById(departmentId);
+
+            Object[] options = {"Cancel", "Edit"};
+
+            StringBuilder message = new StringBuilder();
+
+            message.append("Update Department");
+
+            int choice = JOptionPane.showOptionDialog(null, message.toString(), "Holiday Details", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            if (choice == 1) {
+                departmentFormLabel.setText("Update Department");
+                departmentSubmitBtn.setText("Update");
+                departmentNameTex.setText(this.selectedDepartment.department_name);
+            }
+        }
+
     }//GEN-LAST:event_DepartmentTableMouseClicked
 
     /**

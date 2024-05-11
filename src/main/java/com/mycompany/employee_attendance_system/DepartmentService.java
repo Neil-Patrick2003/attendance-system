@@ -76,6 +76,38 @@ public class DepartmentService {
 
         return null;
     }
+    
+    public static Department getDepartmentById(int departmentId) {
+        String selectQuery = "SELECT * FROM " + DEPARTMENTS_TABLE + " WHERE " + DEPARTMENT_ID_COLUMN + " = '" + departmentId + "' LIMIT 1;";
+        
+        Connection conn = AccessDatabaseConnector.connect();
+        try {
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+
+            Department department = null;
+
+            // Process the results
+            while (resultSet.next()) {
+                int department_id = resultSet.getInt(DEPARTMENT_ID_COLUMN);
+                String name = resultSet.getString(DEPARTMENT_NAME_COLUMN);
+                department = new Department(department_id, name);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+
+            return department;
+        } catch (SQLException e) {
+            System.out.print(e);
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
+
+        return null;
+    }
 
     public static List getAllDepartments() {
         List<Department> departments = new ArrayList<>();
