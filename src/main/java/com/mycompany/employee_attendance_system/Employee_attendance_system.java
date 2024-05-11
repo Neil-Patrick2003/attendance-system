@@ -15,6 +15,20 @@ public class Employee_attendance_system {
     public static void main(String[] args) {
 
         List<Employee> employees = EmployeeService.getAllEmployees();
+        
+        List<AttendanceRecordSummary> records= AttendanceRecordService.getRecords(new Date(2024, 5, 1), new Date(2024, 5, 30));
+        
+        for (int i = 0; i < records.size(); i++) {
+            AttendanceRecordSummary record = records.get(i);
+            System.out.println("Date: " + record.getFormattedDate());
+            System.out.println("Employee ID: " + record.employee.id);
+            System.out.println("Employee Name: " + record.employee.getFullName());
+            System.out.println("Remarks: " + record.remarks);
+            System.out.println("Logged Hours: " + record.totalLoggedHours);
+            System.out.println("Paid Hours: " + record.getTotalWorkingHours());
+            System.out.println("Approved OT Hours: " + record.approvedOvertimeHours);
+            System.out.println("Rendered OT Hours: " + record.getTotalRenderedOvertime());
+        }
 
         for (int i = 0; i < employees.size(); i++) {
             Employee employee = employees.get(i);
