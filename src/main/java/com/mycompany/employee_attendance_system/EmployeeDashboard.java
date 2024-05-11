@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,12 +21,16 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     Employee authenticatedEmployee;
     Employee selectedEmployee;
     AttendanceRecord currentAttendanceRecord;
+    List<Employee> employees = new ArrayList<>(); 
 
     /**
      * Creates new form EmployeeDashboard
      */
     public EmployeeDashboard() {
         initComponents();
+        summaryRecordStartdate.setDate(new Date(new Date().getYear(), new Date().getMonth(), 1)); 
+        summaryRecordEndDate.setDate(new Date()); 
+
         refreshEmployeeList();
         refreshAuthEmployee();
         refreshAdminOvertimeRequestList();
@@ -1909,10 +1912,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void refreshAttendanceRecord() {
         DefaultTableModel summaryDefaultTableModel = (DefaultTableModel) AttendanceSummaryTable.getModel();
+        int employeeIdFilter = 0;
+        int index = EmployeeFilterComboBox.getSelectedIndex();
+
+        if (index > 0 && this.employees.size() >= index) {
+            Employee employee = this.employees.get(index - 1);
+            employeeIdFilter = employee.id;
+        }
 
         Date start_date = summaryRecordStartdate.getDate();
         Date end_date = summaryRecordEndDate.getDate();
-        List<AttendanceRecordSummary> attendanceRecordSummarys = AttendanceRecordService.getRecords(start_date, end_date);
+        List<AttendanceRecordSummary> attendanceRecordSummarys = AttendanceRecordService.getRecords(start_date, end_date, employeeIdFilter);
         summaryDefaultTableModel.setRowCount(0);
 
         for (int i = 0; i < attendanceRecordSummarys.size(); i++) {
@@ -1925,13 +1935,19 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void refreshEmployeeList() {
         DefaultTableModel employeesTableModel = (DefaultTableModel) AdminEmployeesTable.getModel();
-        List<Employee> employees = EmployeeService.getAllEmployees();
+        this.employees = EmployeeService.getAllEmployees();
         employeesTableModel.setRowCount(0);
 
-        for (int i = 0; i < employees.size(); i++) {
-            Employee employee = employees.get(i);
+        EmployeeFilterComboBox.removeAllItems();
+        EmployeeFilterComboBox.addItem("All Employees");
+
+        for (int i = 0; i < this.employees.size(); i++) {
+            Employee employee = this.employees.get(i);
             Object[] rowData = {employee.id, employee.last_name, employee.first_name, employee.email, employee.phone_number, employee.address, employee.username, employee.is_admin, employee.hiring_date, employee.department.department_name, employee.position};
             employeesTableModel.addRow(rowData);
+
+            // Populate filters on attendance records.
+            EmployeeFilterComboBox.addItem(employee.getFullName());
         }
     }
 
@@ -2402,13 +2418,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_AdminDashboradTabMouseClicked
 
     private void EmployeeFilterComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_EmployeeFilterComboBoxItemStateChanged
-        // TODO add your handling code here:
-        List<Employee> employees = EmployeeService.getAllEmployees();
-
-        for (int i = 0; i < employees.size(); i++) {
-            EmployeeFilterComboBox.addItem(employees.get(i).getFullName());
-
-        }
+        refreshAttendanceRecord(); 
     }//GEN-LAST:event_EmployeeFilterComboBoxItemStateChanged
 
     /**
