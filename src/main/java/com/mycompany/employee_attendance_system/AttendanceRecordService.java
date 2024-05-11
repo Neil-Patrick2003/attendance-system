@@ -246,7 +246,7 @@ public class AttendanceRecordService {
                 + "order by "
                 + "  dateRef";
         
-        System.out.println(sqlScript);
+//        System.out.println(sqlScript);
 
         List<AttendanceRecordSummary> records = new ArrayList<>();
 

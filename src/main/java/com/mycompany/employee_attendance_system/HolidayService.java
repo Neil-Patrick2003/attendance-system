@@ -99,12 +99,46 @@ public class HolidayService {
         Connection conn = AccessDatabaseConnector.connect();
         try (Statement statement = conn.createStatement()) {
             String deleteQuery = "DELETE FROM holidays WHERE holiday_id = " + holidayId;
+            System.out.println(deleteQuery);
             statement.executeUpdate(deleteQuery);
         } catch (SQLException e) {
             e.printStackTrace(); // Handle SQL exceptions
         } finally {
             AccessDatabaseConnector.closeConnection(conn);
         }
+    }
+    
+    public static Holiday getHolidayById(int holidayId) {
+        String selectQuery = "SELECT * FROM holidays WHERE holiday_id = '" + holidayId + "' LIMIT 1;";
+        
+        Connection conn = AccessDatabaseConnector.connect();
+        try {
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+
+            Holiday holiday = null;
+
+            // Process the results
+            while (resultSet.next()) {
+                int id = resultSet.getInt("holiday_id");
+                String name = resultSet.getString("holiday_name");
+                Date date = resultSet.getDate("holiday_date");
+                holiday = new Holiday(id, name, date);
+            }
+
+            // Close the result set and statement
+            resultSet.close();
+            statement.close();
+
+            return holiday;
+        } catch (SQLException e) {
+            System.out.print(e);
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
+
+        return null;
     }
 
 }
