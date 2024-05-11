@@ -21,22 +21,22 @@ public class OvertimeRequestService {
 
     public static final String OVERTIME_REQUESTS_TABLE = "overtime_requests";
     public static final String REQUEST_ID_COLUMN = "request_id";
-    public static final String START_DATE_COLUMN = "start_date";
-    public static final String END_DATE_COLUMN = "end_date";
+    public static final String DATE_COLUMN = "date";
+    public static final String NO_OF_HOURS_COLUMN = "no_of_hours";
     public static final String STATUS_COLUMN = "status";
     public static final String NOTES_COLUMN = "notes";
     public static final String EMPLOYEE_ID_COLUMN = "employee_id";
 
-    public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    public static void createOvertimeRequest(Date startDate, Date endDate, String status, String notes, int employee_id) {
+    public static void createOvertimeRequest(Date date, int noOfHours, String status, String notes, int employee_id) {
         Connection conn = AccessDatabaseConnector.connect();
         try {
 
             // Execute an INSERT query
             try (Statement statement = conn.createStatement()) {
                 // Execute an INSERT query
-                String insertQuery = "INSERT INTO " + OVERTIME_REQUESTS_TABLE + " (" + START_DATE_COLUMN + ", " + END_DATE_COLUMN + ", " + STATUS_COLUMN + ", " + NOTES_COLUMN + ", " + EMPLOYEE_ID_COLUMN + " ) VALUES ('" + dateFormatter.format(startDate) + "', '" + dateFormatter.format(endDate) + "', '" + status + "', '" + notes + "', '" + employee_id + "');";
+                String insertQuery = "INSERT INTO " + OVERTIME_REQUESTS_TABLE + " (" + DATE_COLUMN + ", " + NO_OF_HOURS_COLUMN + ", " + STATUS_COLUMN + ", " + NOTES_COLUMN + ", " + EMPLOYEE_ID_COLUMN + " ) VALUES ('" + dateFormatter.format(date) + "', '" + noOfHours + "', '" + status + "', '" + notes + "', '" + employee_id + "');";
                 System.out.println(insertQuery);
                 int rowsAffected = statement.executeUpdate(insertQuery);
                 // Check the number of rows affected
@@ -76,10 +76,10 @@ public class OvertimeRequestService {
                 String status = resultSet.getString(STATUS_COLUMN);
                 String notes = resultSet.getString(NOTES_COLUMN);
                 int employee_id = resultSet.getInt(EMPLOYEE_ID_COLUMN);
-                Date startDate = resultSet.getDate(START_DATE_COLUMN);
-                Date endDate = resultSet.getDate(END_DATE_COLUMN);
+                Date date = resultSet.getDate(DATE_COLUMN);
+                int noOfHours = resultSet.getInt(NO_OF_HOURS_COLUMN);
 
-                OvertimeRequest overtimeRequest = new OvertimeRequest(request_id, startDate, endDate, notes, status, employee_id);
+                OvertimeRequest overtimeRequest = new OvertimeRequest(request_id, date, noOfHours, notes, status, employee_id);
                 overtimeRequests.add(overtimeRequest);
 
                 String last_name = resultSet.getString("last_name");
@@ -133,10 +133,10 @@ public class OvertimeRequestService {
                 String status = resultSet.getString(STATUS_COLUMN);
                 String notes = resultSet.getString(NOTES_COLUMN);
                 int employee_id = resultSet.getInt(EMPLOYEE_ID_COLUMN);
-                Date startDate = resultSet.getDate(START_DATE_COLUMN);
-                Date endDate = resultSet.getDate(END_DATE_COLUMN);
+                Date date = resultSet.getDate(DATE_COLUMN);
+                int noOfHours = resultSet.getInt(NO_OF_HOURS_COLUMN);
 
-                overtimeRequest = new OvertimeRequest(request_id, startDate, endDate, notes, status, employee_id);
+                overtimeRequest = new OvertimeRequest(request_id, date, noOfHours, notes, status, employee_id);
 
                 String last_name = resultSet.getString("last_name");
                 String first_name = resultSet.getString("first_name");
@@ -167,7 +167,7 @@ public class OvertimeRequestService {
 
         return overtimeRequest;
     }
-    
+
     public static List getOvertimeRequestsByEmployeeId(int employeeId) {
         List<OvertimeRequest> overtimeRequests = new ArrayList<>();
 
@@ -192,10 +192,12 @@ public class OvertimeRequestService {
                 String status = resultSet.getString(STATUS_COLUMN);
                 String notes = resultSet.getString(NOTES_COLUMN);
                 int employee_id = resultSet.getInt(EMPLOYEE_ID_COLUMN);
-                Date startDate = resultSet.getDate(START_DATE_COLUMN);
-                Date endDate = resultSet.getDate(END_DATE_COLUMN);
 
-                OvertimeRequest overtimeRequest = new OvertimeRequest(request_id, startDate, endDate, notes, status, employee_id);
+                Date date = resultSet.getDate(DATE_COLUMN);
+                int noOfHours = resultSet.getInt(NO_OF_HOURS_COLUMN);
+
+
+                OvertimeRequest overtimeRequest = new OvertimeRequest(request_id, date, noOfHours, notes, status, employee_id);
                 overtimeRequests.add(overtimeRequest);
 
                 String last_name = resultSet.getString("last_name");
@@ -228,10 +230,10 @@ public class OvertimeRequestService {
         return overtimeRequests;
     }
 
-    public static void updateOvertimeRequest(int request_id, Date startDate, Date endDate, String status, String notes, int employee_id) {
+    public static void updateOvertimeRequest(int request_id, Date date, int noOfHours, String status, String notes, int employee_id) {
         Connection conn = AccessDatabaseConnector.connect();
         try (Statement statement = conn.createStatement()) {
-            String updateQuery = "Update " + OVERTIME_REQUESTS_TABLE + " SET " + START_DATE_COLUMN + " = '" + dateFormatter.format(startDate) + "', " + END_DATE_COLUMN + " = '" + dateFormatter.format(endDate) + "', " + STATUS_COLUMN + " = '" + status + "', " + NOTES_COLUMN + " = '" + notes + "', " + EMPLOYEE_ID_COLUMN + " = '" + employee_id + "' WHERE " + REQUEST_ID_COLUMN + " = " + request_id + ";";
+            String updateQuery = "Update " + OVERTIME_REQUESTS_TABLE + " SET " + DATE_COLUMN + " = '" + dateFormatter.format(date) + "', " + NO_OF_HOURS_COLUMN + " = '" + noOfHours + "', " + STATUS_COLUMN + " = '" + status + "', " + NOTES_COLUMN + " = '" + notes + "', " + EMPLOYEE_ID_COLUMN + " = '" + employee_id + "' WHERE " + REQUEST_ID_COLUMN + " = " + request_id + ";";
             System.out.println(updateQuery);
             statement.executeUpdate(updateQuery);
 
