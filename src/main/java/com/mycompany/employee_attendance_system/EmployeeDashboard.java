@@ -240,6 +240,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         editHolidayButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         HolidayTable = new javax.swing.JTable();
         jLabel46 = new javax.swing.JLabel();
@@ -1363,7 +1364,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(462, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1465,6 +1466,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         editHolidayButton.setText("Edit");
         editHolidayButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
+        jButton1.setBackground(new java.awt.Color(51, 153, 255));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setText("Update");
+        jButton1.setBorder(null);
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -1478,25 +1484,31 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editHolidayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(editHolidayButton, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel17))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel45)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(editHolidayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(editHolidayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         HolidayTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -1555,10 +1567,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(54, 54, 54))
         );
 
         AdminDashboradTab.addTab("Holiday", HolidayTab);
@@ -2059,7 +2071,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         for (int i = 0; i < holidays.size(); i++) {
             Holiday holiday = holidays.get(i);
-            Object[] rowData = {holiday.holiday_name, holiday.holiday_date};
+            Object[] rowData = {holiday.holiday_id, holiday.holiday_name, holiday.holiday_date};
             holidayTableModel.addRow(rowData);
         }
     }
@@ -2579,11 +2591,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         refreshAttendanceRecord();
     }//GEN-LAST:event_EmployeeFilterComboBoxItemStateChanged
 
-    private void HolidayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HolidayTableMouseClicked
-        // TODO add your handling code here:
-        refreshHolidayTable();
-    }//GEN-LAST:event_HolidayTableMouseClicked
-
     private void summaryRecordStartdatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_summaryRecordStartdatePropertyChange
         refreshAttendanceRecord();
     }//GEN-LAST:event_summaryRecordStartdatePropertyChange
@@ -2591,6 +2598,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void summaryRecordEndDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_summaryRecordEndDatePropertyChange
         refreshAttendanceRecord();
     }//GEN-LAST:event_summaryRecordEndDatePropertyChange
+
+    private void HolidayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HolidayTableMouseClicked
+        // TODO add your handling code here:
+        //
+    }//GEN-LAST:event_HolidayTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2688,6 +2700,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JTable employeeOvertimeTable;
     private javax.swing.JTable employeeRequestLeaveTable;
     private javax.swing.JCheckBox isAdminTextBox;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
