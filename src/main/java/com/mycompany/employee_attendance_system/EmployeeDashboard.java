@@ -89,7 +89,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         profileInformationListModel.addElement("  " + authenticatedEmployee.phone_number);
         profileInformationListModel.addElement("  " + authenticatedEmployee.department.department_name);
         profileInformationListModel.addElement("  " + authenticatedEmployee.hiring_date);
-        profileInformationListModel.addElement("  : " + authenticatedEmployee.position);
+        profileInformationListModel.addElement("  " + authenticatedEmployee.position);
         profileInformationListModel.addElement("  " + authenticatedEmployee.username);
         profileInformationListModel.addElement("  " );
         profileInformationListModel.addElement("  " + authenticatedEmployee.hiring_date);
@@ -277,6 +277,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         OvertimeDateChooser = new com.toedter.calendar.JDateChooser();
         OvertimeHourCmboBx = new javax.swing.JComboBox<>();
         SubmitOvertime = new javax.swing.JButton();
+        HolidayTab = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(220, 220, 220));
@@ -417,7 +419,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(AdminButtonLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -739,7 +741,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(DashboradTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("dashboard", DashboradTab);
@@ -967,7 +969,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(ProfileTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateProfileEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateProfileSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("tab4", ProfileTab);
@@ -1074,7 +1076,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         LeaveTabbedLayout.setVerticalGroup(
             LeaveTabbedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeaveTabbedLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(209, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -1168,7 +1170,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Employees", EmployeeTab);
@@ -1244,7 +1246,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Leave Requests", LeaveRequestTab);
@@ -1317,7 +1319,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(OverTimeListTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75))
         );
@@ -1416,9 +1418,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addGroup(adminReportTabLayout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(1, 1, 1)))
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Attendance Report", adminReportTab);
@@ -1661,7 +1662,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout adminManageEmployeeLayout = new javax.swing.GroupLayout(adminManageEmployee);
@@ -1766,7 +1767,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(addOvertimeRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("tab7", OvertimeTab);
@@ -1883,13 +1884,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SubmitOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(37, 664, Short.MAX_VALUE)
+                        .addComponent(SubmitOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28))
         );
 
@@ -1905,6 +1907,38 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         );
 
         RIghtPanelTabbed.addTab("tab6", OvertimeFormTab);
+
+        HolidayTab.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 273, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 533, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout HolidayTabLayout = new javax.swing.GroupLayout(HolidayTab);
+        HolidayTab.setLayout(HolidayTabLayout);
+        HolidayTabLayout.setHorizontalGroup(
+            HolidayTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HolidayTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(440, Short.MAX_VALUE))
+        );
+        HolidayTabLayout.setVerticalGroup(
+            HolidayTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HolidayTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(182, Short.MAX_VALUE))
+        );
+
+        RIghtPanelTabbed.addTab("tab8", HolidayTab);
 
         getContentPane().add(RIghtPanelTabbed, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, -24, 730, 600));
 
@@ -1979,7 +2013,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         }
     }
 
-    private void employeeRefreshLeaveRequestList() {
+    public void employeeRefreshLeaveRequestList() {
         DefaultTableModel employeeLeaveRequestDefaultTableModel = (DefaultTableModel) employeeRequestLeaveTable.getModel();
         List<LeaveRequest> leaveRequests = LeaveRequestService.getAllLeaveRequestsByEmployeeId(authenticatedEmployee.id);
         employeeLeaveRequestDefaultTableModel.setRowCount(0);
@@ -2064,6 +2098,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void AddLeaveReqButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddLeaveReqButtonMouseClicked
         // TODO add your handling code here:
         AddLeaveReqForm leaveForm = new AddLeaveReqForm();
+        leaveForm.setDashboardFrame(this);
         leaveForm.setVisible(true);
         leaveForm.setLocationRelativeTo(null);
         leaveForm.setAuthenticatedEmployee(authenticatedEmployee);
@@ -2476,6 +2511,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel FirstNameLabel;
     private javax.swing.JTextField FirstNameText;
     private com.toedter.calendar.JDateChooser HiringdateChooser;
+    private javax.swing.JPanel HolidayTab;
     private javax.swing.JLabel LastNameLabel;
     private javax.swing.JTextField LastNameText;
     private javax.swing.JPanel LeaveButton;
@@ -2562,6 +2598,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
