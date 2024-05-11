@@ -88,8 +88,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         AdminButton = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        OverTimeButton = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         RIghtPanelTabbed = new javax.swing.JTabbedPane();
         DashboradTab = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -275,6 +276,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("My Profile");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/employee_attendance_system/icons/icons8-test-account-30 (1).png"))); // NOI18N
@@ -319,7 +321,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(AdminButtonLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel19)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -333,25 +335,40 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(0, 200, 255));
+        OverTimeButton.setBackground(new java.awt.Color(0, 200, 255));
+        OverTimeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OverTimeButtonMouseClicked(evt);
+            }
+        });
 
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/employee_attendance_system/icons/icons8-timesheet-20.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jLabel38.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setText("Overtime");
+
+        javax.swing.GroupLayout OverTimeButtonLayout = new javax.swing.GroupLayout(OverTimeButton);
+        OverTimeButton.setLayout(OverTimeButtonLayout);
+        OverTimeButtonLayout.setHorizontalGroup(
+            OverTimeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OverTimeButtonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        OverTimeButtonLayout.setVerticalGroup(
+            OverTimeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OverTimeButtonLayout.createSequentialGroup()
                 .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(OverTimeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(OverTimeButtonLayout.createSequentialGroup()
+                        .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout LeftPanelLayout = new javax.swing.GroupLayout(LeftPanel);
@@ -362,7 +379,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addComponent(MyProfileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(LeaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(AdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(OverTimeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(LeftPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
@@ -380,10 +397,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(MyProfileButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addComponent(OverTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         getContentPane().add(LeftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 179, 580));
@@ -1836,6 +1853,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 //        timeButton.setEnabled(true);
     }//GEN-LAST:event_timeButtonMouseClicked
 
+    private void OverTimeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OverTimeButtonMouseClicked
+        // TODO add your handling code here:ds
+        RIghtPanelTabbed.setSelectedIndex(5);
+        resetColor(DashboardButton);
+        resetColor(LeaveButton);
+        resetColor(MyProfileButton);
+        setColor(AdminButton);
+    }//GEN-LAST:event_OverTimeButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1899,6 +1925,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel MyProfileButton;
     private javax.swing.JLabel NameLabel;
     private javax.swing.JLabel NumberLabel;
+    private javax.swing.JPanel OverTimeButton;
     private javax.swing.JPanel OverTimeListTab;
     private javax.swing.JPanel OvertimeTab;
     private javax.swing.JTextField PhoneNumberText;
@@ -1947,6 +1974,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1962,7 +1990,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
