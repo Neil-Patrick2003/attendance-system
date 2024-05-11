@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.plaf.nimbus.NimbusStyle;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -1593,6 +1594,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 "Request Id", "Date", "No. of hours", "Status", "Notes"
             }
         ));
+        employeeOvertimeTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                employeeOvertimeTableMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(employeeOvertimeTable);
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -2073,6 +2079,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = employeeRequestLeaveTable.getSelectedRow();
         int leaveRequestId = (int) employeeRequestLeaveTable.getValueAt(i, 0);
+        System.out.println("pepaaaa");
 
         LeaveRequest leaveRequest = LeaveRequestService.getLeaveRequestById(leaveRequestId);
 
@@ -2186,31 +2193,39 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         OvertimeRequest overtimeRequest =   OvertimeRequestService.getOvertimeRequestById(overtimeRequestId);//.getLeaveRequestById(leaveRequestId);
         System.out.println("ID:   " + overtimeRequestId);
         
-//        StringBuilder message = new StringBuilder();
-//        message.append("_______________________________________________ ").append("\n\n");
-//        message.append("Employee Name: ").append(leaveRequest.employee.getFullName()).append("\n");
-//        message.append("Leave Type: ").append(leaveRequest.leaveType.name).append("\n");
-//        message.append("Start Date: ").append(leaveRequest.getFormattedStartDate()).append("\n");
-//        message.append("End Date: ").append(leaveRequest.getFormattedEndDate()).append("\n");
-//        message.append("Duration: ").append(leaveRequest.getDuration()).append(" day/s.").append("\n\n");
-//        message.append("Notes: ").append(leaveRequest.notes).append("\n");
-//
-//        if (leaveRequest.status.equals("For approval")) {
-//            System.out.println("ygtumtytytyyty");
-//            Object[] options = {"Approved", "Reject"};
-//            int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-//
-//            if (choice == 0) {
-//                LeaveRequestService.updateLeaveRequest(leaveRequestId, leaveRequest.startDate, leaveRequest.endDate, "Approved", leaveRequest.notes, leaveRequest.leave_type_id, leaveRequest.employee_id);
-//                refreshLeaveRequestList();
-//            } else {
-//                LeaveRequestService.updateLeaveRequest(leaveRequestId, leaveRequest.startDate, leaveRequest.endDate, "Rejected", leaveRequest.notes, leaveRequest.leave_type_id, leaveRequest.employee_id);
-//            }
-//        } else {
-//            Object[] options2 = {"Okay"};
-//            int choice = JOptionPane.showOptionDialog(null, message.toString(), "Leave Request Details", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
-//        }
+        StringBuilder message = new StringBuilder();
+        message.append("___________________________________").append("\n");
+        message.append("Employee : " + overtimeRequest.employee.getFullName()).append("\n\n");
+        message.append("  ").append("\n");
+        message.append("Date : " + overtimeRequest.date).append("\n");
+        message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
+        message.append("Notes : " + overtimeRequest.notes).append("\n");
+        
+        if(overtimeRequest.status.equals("For approval")){
+            Object[] option = {"Approved", "Reject"};
+            int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
+            if(choice == 0){
+                OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequestId, "Approved", overtimeRequest.notes, overtimeRequest.employee_id);
+                refreshAdminOvertimeRequestList();
+            }
+            else{
+                OvertimeRequestService.updateOvertimeRequest(overtimeRequestId, overtimeRequest.date, overtimeRequestId, "Rejected", overtimeRequest.notes, overtimeRequest.employee_id);
+                refreshAdminOvertimeRequestList();
+            }
+        }else{
+             Object[] option2 = {"Okay"};
+            int choice2 = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option2, option2[0]);
+            if(choice2 == 0){
+                refreshAdminOvertimeRequestList();
+            }
+        }
+        
+        
     }//GEN-LAST:event_adminOvertimeListTableMouseClicked
+
+    private void employeeOvertimeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeeOvertimeTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_employeeOvertimeTableMouseClicked
 
     /**
      * @param args the command line arguments
