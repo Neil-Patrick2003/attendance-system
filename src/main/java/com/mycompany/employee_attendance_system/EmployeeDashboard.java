@@ -254,10 +254,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jPanel20 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         DepartmentTable = new javax.swing.JTable();
-        jLabel47 = new javax.swing.JLabel();
+        departmentFormLabel = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         departmentNameTex = new javax.swing.JTextField();
-        AddDepartmentBtn = new javax.swing.JButton();
+        departmentDeleteBtn = new javax.swing.JButton();
+        departmentSubmitBtn = new javax.swing.JButton();
         adminManageEmployee = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -333,7 +334,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DashboardButtonLayout.setHorizontalGroup(
             DashboardButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardButtonLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,7 +478,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         OverTimeButtonLayout.setVerticalGroup(
             OverTimeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,7 +762,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(DashboradTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("dashboard", DashboradTab);
@@ -989,7 +990,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGroup(ProfileTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateProfileEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateProfileSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("tab4", ProfileTab);
@@ -1094,7 +1095,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         LeaveTabbedLayout.setVerticalGroup(
             LeaveTabbedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeaveTabbedLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(149, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -1183,7 +1184,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Employees", EmployeeTab);
@@ -1259,7 +1260,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         AdminDashboradTab.addTab("Leave Requests", LeaveRequestTab);
@@ -1630,9 +1631,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         });
         jScrollPane9.setViewportView(DepartmentTable);
 
-        jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel47.setText("Add Department");
+        departmentFormLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        departmentFormLabel.setForeground(new java.awt.Color(51, 51, 51));
+        departmentFormLabel.setText("Add Department");
 
         jLabel48.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel48.setForeground(new java.awt.Color(102, 102, 102));
@@ -1641,13 +1642,23 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         departmentNameTex.setBackground(new java.awt.Color(255, 255, 255));
         departmentNameTex.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
-        AddDepartmentBtn.setBackground(new java.awt.Color(51, 153, 255));
-        AddDepartmentBtn.setForeground(new java.awt.Color(255, 255, 255));
-        AddDepartmentBtn.setText("Add");
-        AddDepartmentBtn.setBorder(null);
-        AddDepartmentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        departmentDeleteBtn.setBackground(new java.awt.Color(51, 153, 255));
+        departmentDeleteBtn.setForeground(new java.awt.Color(0, 0, 0));
+        departmentDeleteBtn.setText("Delete");
+        departmentDeleteBtn.setBorder(null);
+        departmentDeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddDepartmentBtnMouseClicked(evt);
+                departmentDeleteBtnMouseClicked(evt);
+            }
+        });
+
+        departmentSubmitBtn.setBackground(new java.awt.Color(51, 153, 255));
+        departmentSubmitBtn.setForeground(new java.awt.Color(0, 0, 0));
+        departmentSubmitBtn.setText("Create");
+        departmentSubmitBtn.setBorder(null);
+        departmentSubmitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                departmentSubmitBtnMouseClicked(evt);
             }
         });
 
@@ -1660,12 +1671,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(departmentFormLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AddDepartmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(departmentSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(departmentDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -1674,19 +1687,15 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel48)
-                            .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(35, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AddDepartmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(departmentFormLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departmentDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departmentSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DepartmentTabLayout = new javax.swing.GroupLayout(DepartmentTab);
@@ -2051,7 +2060,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(addOvertimeRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         RIghtPanelTabbed.addTab("tab7", OvertimeTab);
@@ -2202,7 +2211,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         );
         DepartmenttabLayout.setVerticalGroup(
             DepartmenttabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
+            .addGap(0, 667, Short.MAX_VALUE)
         );
 
         RIghtPanelTabbed.addTab("tab8", Departmenttab);
@@ -2814,13 +2823,17 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         refreshHolidayTable();
     }//GEN-LAST:event_editHolidayButtonMouseClicked
 
-    private void AddDepartmentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddDepartmentBtnMouseClicked
+    private void departmentDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentDeleteBtnMouseClicked
         // TODO add your handling code here:
         String dept_name = departmentNameTex.getText();
         
         DepartmentService.addDepartment(dept_name);
         refreshHolidayTable();
-    }//GEN-LAST:event_AddDepartmentBtnMouseClicked
+    }//GEN-LAST:event_departmentDeleteBtnMouseClicked
+
+    private void departmentSubmitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentSubmitBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_departmentSubmitBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2858,7 +2871,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddDepartmentBtn;
     private javax.swing.JButton AddLeaveReqButton;
     private javax.swing.JLabel AddressLabel;
     private javax.swing.JTextField AddressText;
@@ -2919,7 +2931,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel attendancePanel;
     private javax.swing.JLabel attendanceSummaryLabel;
     private javax.swing.JButton deleteHolidayButton;
+    private javax.swing.JButton departmentDeleteBtn;
+    private javax.swing.JLabel departmentFormLabel;
     private javax.swing.JTextField departmentNameTex;
+    private javax.swing.JButton departmentSubmitBtn;
     private javax.swing.JButton editHolidayButton;
     private javax.swing.JTable employeeOvertimeTable;
     private javax.swing.JTable employeeRequestLeaveTable;
@@ -2967,7 +2982,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
