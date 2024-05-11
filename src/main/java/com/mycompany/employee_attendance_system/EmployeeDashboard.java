@@ -77,7 +77,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             } else {
                 attendanceButton.setText("Time In");
                 attendanceButton.setEnabled(false);
-                attendanceSummaryLabel.setText("Already have attendance record today. Time IN: " + this.currentAttendanceRecord.getFormattedTimeIn() + " Time Out: " + this.currentAttendanceRecord.getFormattedTimeOut());
+                attendanceSummaryLabel.setText("Time IN: " + this.currentAttendanceRecord.getFormattedTimeIn() + " Time Out: " + this.currentAttendanceRecord.getFormattedTimeOut());
             }
         }
 
