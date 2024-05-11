@@ -88,7 +88,7 @@
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="OverTimeButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="AdminButton" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="AdminButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="140" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -304,7 +304,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -820,9 +820,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel14">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="2" name="C:\Users\Neil Patrick\Downloads\icons8-about-30.png"/>
-                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel12"/>
                       </Properties>
                     </Component>
@@ -1489,11 +1486,6 @@
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JLabel" name="jLabel20">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Neil Patrick\Downloads\icons8-briefcase-30.png"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel21">
                   <Properties>
@@ -2392,13 +2384,13 @@
                               </Group>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextField1" max="32767" attributes="0"/>
-                                  <Component id="jDateChooser1" pref="156" max="32767" attributes="0"/>
+                                  <Component id="holidayInputName" max="32767" attributes="0"/>
+                                  <Component id="holidayDatePicker" pref="156" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace pref="245" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="editHolidayButton" pref="142" max="32767" attributes="0"/>
-                                  <Component id="jButton1" max="32767" attributes="0"/>
+                                  <Component id="deleteHolidayButton" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
@@ -2414,17 +2406,17 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextField1" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="holidayInputName" min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton1" min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="deleteHolidayButton" min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser1" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="holidayDatePicker" min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="editHolidayButton" min="-2" pref="33" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="31" max="32767" attributes="0"/>
@@ -2433,7 +2425,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JTextField" name="jTextField1">
+                    <Component class="javax.swing.JTextField" name="holidayInputName">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -2472,7 +2464,7 @@
                         <Property name="text" type="java.lang.String" value="Date"/>
                       </Properties>
                     </Component>
-                    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                    <Component class="com.toedter.calendar.JDateChooser" name="holidayDatePicker">
                     </Component>
                     <Component class="javax.swing.JButton" name="editHolidayButton">
                       <Properties>
@@ -2495,7 +2487,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton1">
+                    <Component class="javax.swing.JButton" name="deleteHolidayButton">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="99" red="33" type="rgb"/>
@@ -2511,6 +2503,9 @@
                           <Border info="null"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="deleteHolidayButtonMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -3284,7 +3279,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" pref="357" max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="148" max="32767" attributes="0"/>
                           <Component id="SubmitOvertime" min="-2" pref="151" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -3300,7 +3295,7 @@
                                   <Component id="jPanel2" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="37" pref="664" max="32767" attributes="0"/>
+                                  <EmptySpace min="37" max="32767" attributes="0"/>
                                   <Component id="SubmitOvertime" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -3328,7 +3323,7 @@
                                   <Component id="jLabel42" min="-2" pref="207" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jLabel40" pref="169" max="32767" attributes="0"/>
+                                          <Component id="jLabel40" pref="0" max="32767" attributes="0"/>
                                           <Component id="jLabel41" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
@@ -3338,7 +3333,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="9" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

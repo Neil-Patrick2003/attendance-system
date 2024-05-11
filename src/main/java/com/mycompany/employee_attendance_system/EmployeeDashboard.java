@@ -236,12 +236,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         EmployeeFilterComboBox = new javax.swing.JComboBox<>();
         HolidayTab = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        holidayInputName = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        holidayDatePicker = new com.toedter.calendar.JDateChooser();
         editHolidayButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        deleteHolidayButton = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         HolidayTable = new javax.swing.JTable();
         jLabel46 = new javax.swing.JLabel();
@@ -436,7 +436,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         AdminButtonLayout.setVerticalGroup(
             AdminButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminButtonLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(AdminButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19))
@@ -524,7 +524,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(OverTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(AdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(140, Short.MAX_VALUE))
         );
 
@@ -673,7 +673,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(135, 206, 235));
 
-        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\Neil Patrick\\Downloads\\icons8-about-30.png")); // NOI18N
         jLabel14.setText("jLabel12");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -1042,8 +1041,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             employeeRequestLeaveTable.getColumnModel().getColumn(4).setResizable(false);
             employeeRequestLeaveTable.getColumnModel().getColumn(5).setResizable(false);
         }
-
-        jLabel20.setIcon(new javax.swing.ImageIcon("C:\\Users\\Neil Patrick\\Downloads\\icons8-briefcase-30.png")); // NOI18N
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -1467,9 +1464,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        holidayInputName.setBackground(new java.awt.Color(255, 255, 255));
+        holidayInputName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        holidayInputName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(102, 102, 102));
@@ -1485,11 +1482,16 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         editHolidayButton.setText("Add");
         editHolidayButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Delete");
-        jButton1.setBorder(null);
+        deleteHolidayButton.setBackground(new java.awt.Color(51, 153, 255));
+        deleteHolidayButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        deleteHolidayButton.setForeground(new java.awt.Color(0, 0, 0));
+        deleteHolidayButton.setText("Delete");
+        deleteHolidayButton.setBorder(null);
+        deleteHolidayButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteHolidayButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1502,12 +1504,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                    .addComponent(holidayInputName)
+                    .addComponent(holidayDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editHolidayButton, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteHolidayButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel12Layout.setVerticalGroup(
@@ -1519,14 +1521,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                         .addComponent(jLabel17))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(holidayInputName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(deleteHolidayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel45)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(holidayDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editHolidayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
@@ -2001,13 +2003,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(OvertimeHourCmboBx, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(OvertimeDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2048,7 +2050,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addComponent(SubmitOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
@@ -2061,7 +2063,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(37, 664, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(SubmitOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28))
         );
@@ -2635,9 +2637,16 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_summaryRecordEndDatePropertyChange
 
     private void HolidayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HolidayTableMouseClicked
-        // TODO add your handling code here:
-        //
+        int index = HolidayTable.getSelectedRow();
+        int holidayId = (int) adminOvertimeListTable.getValueAt(index, 0);
+        
+        editHolidayButton.setText("Update");
+        
     }//GEN-LAST:event_HolidayTableMouseClicked
+
+    private void deleteHolidayButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteHolidayButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteHolidayButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2732,12 +2741,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JButton attendanceButton;
     private javax.swing.JPanel attendancePanel;
     private javax.swing.JLabel attendanceSummaryLabel;
+    private javax.swing.JButton deleteHolidayButton;
     private javax.swing.JButton editHolidayButton;
     private javax.swing.JTable employeeOvertimeTable;
     private javax.swing.JTable employeeRequestLeaveTable;
+    private com.toedter.calendar.JDateChooser holidayDatePicker;
+    private javax.swing.JTextField holidayInputName;
     private javax.swing.JCheckBox isAdminTextBox;
-    private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2814,7 +2824,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JList<String> leaveBalanceList;
     private com.toedter.calendar.JDateChooser summaryRecordEndDate;
     private com.toedter.calendar.JDateChooser summaryRecordStartdate;
