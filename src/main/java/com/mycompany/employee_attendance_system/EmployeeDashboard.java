@@ -21,6 +21,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     Employee authenticatedEmployee;
     Employee selectedEmployee;
+    Holiday selectedHoliday;
     AttendanceRecord currentAttendanceRecord;
     List<Employee> employees = new ArrayList<>();
 
@@ -2678,18 +2679,61 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     private void HolidayTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HolidayTableMouseClicked
         int index = HolidayTable.getSelectedRow();
-        int holidayId = (int) adminOvertimeListTable.getValueAt(index, 0);
-        
-        editHolidayButton.setText("Update");
-        
+
+        if (index >= 0) {
+            int holidayId = (int) HolidayTable.getValueAt(index, 0);
+
+            this.selectedHoliday = HolidayService.getHolidayById(holidayId);
+
+            Object[] options = {"Cancel", "Edit", "Delete"};
+
+            StringBuilder message = new StringBuilder();
+
+            message.append("Manage Holiday");
+
+            int choice = JOptionPane.showOptionDialog(null, message.toString(), "Holiday Details", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            if (choice == 1) {
+                editHolidayButton.setText("Update");
+                holidayInputName.setText(this.selectedHoliday.holiday_name);
+                holidayDatePicker.setDate(this.selectedHoliday.holiday_date);
+            }
+
+            if (choice == 2) {
+                HolidayService.deleteHolidayById(holidayId);
+                refreshHolidayTable();
+            }
+        }
     }//GEN-LAST:event_HolidayTableMouseClicked
 
     private void deleteHolidayButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteHolidayButtonMouseClicked
-        // TODO add your handling code here:
+        this.selectedHoliday = null;
+        editHolidayButton.setText("Create");
+        holidayInputName.setText("");
+        holidayDatePicker.setDate(null);
     }//GEN-LAST:event_deleteHolidayButtonMouseClicked
 
     private void editHolidayButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editHolidayButtonMouseClicked
-        // TODO add your handling code here:
+        String name = holidayInputName.getText();
+        Date date = holidayDatePicker.getDate();
+
+        if (name.equals("") || name == null || date == null) {
+            JOptionPane.showMessageDialog(this, "Incomplete form");
+
+            return;
+        }
+
+        if (this.selectedEmployee != null) {
+            HolidayService.updateHolidayById(this.selectedHoliday.holiday_id, date, name);
+        } else {
+            HolidayService.createHoliday(date, name);
+        }
+
+        this.selectedHoliday = null;
+        editHolidayButton.setText("Create");
+        holidayInputName.setText("");
+        holidayDatePicker.setDate(null);
+        refreshHolidayTable();
     }//GEN-LAST:event_editHolidayButtonMouseClicked
 
     /**
