@@ -4,6 +4,8 @@
  */
 package com.mycompany.employee_attendance_system;
 
+import static com.mycompany.employee_attendance_system.LeaveRequestService.LEAVE_REQUESTS_TABLE;
+import static com.mycompany.employee_attendance_system.LeaveRequestService.REQUEST_ID_COLUMN;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,7 +115,7 @@ public class OvertimeRequestService {
         return overtimeRequests;
     }
 
-    public static OvertimeRequest getOvertimeRequestById(int requestId) {
+    public static OvertimeRequest getOvertimeRequestById(int requestId) {   
         Connection conn = AccessDatabaseConnector.connect();
         OvertimeRequest overtimeRequest = null;
         try {
@@ -179,7 +181,7 @@ public class OvertimeRequestService {
             // Execute a SELECT query
             String selectQuery = "SELECT overtime_requests.*, employees.* "
                     + "FROM overtime_requests "
-                    + "JOIN employees ON overtime_requests.employee_id = employees.employee_id"
+                    + "JOIN employees ON overtime_requests.employee_id = employees.employee_id "
                     + "WHERE overtime_requests.employee_id = " + employeeId + ";";
 
             System.out.println(selectQuery);
@@ -238,6 +240,18 @@ public class OvertimeRequestService {
             System.out.println(updateQuery);
             statement.executeUpdate(updateQuery);
 
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle SQL exceptions
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
+    }
+    
+    public static void deleteOvertimeRequestById(int request_id) {
+        Connection conn = AccessDatabaseConnector.connect();
+        try (Statement statement = conn.createStatement()) {
+            String deleteQuery = "DELETE FROM " + OVERTIME_REQUESTS_TABLE + " WHERE " + REQUEST_ID_COLUMN + " = " + request_id;
+            statement.executeUpdate(deleteQuery);
         } catch (SQLException e) {
             e.printStackTrace(); // Handle SQL exceptions
         } finally {
