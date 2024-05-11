@@ -116,18 +116,20 @@ public class AttendanceRecordService {
         }
     }
 
-    public static List getRecords(Date start_date, Date end_date) {
+    public static List getRecords(Date start_date, Date end_date, int employeeIdFilter) {
+        String whereCondition = employeeIdFilter > 0 ? " WHERE employees.employee_id = '" + employeeIdFilter + "' ": "";
+        
         String sqlScript
                 = "WITH RECURSIVE DateRange AS ("
                 + "  SELECT "
-                + "    DATE '2024-05-01' AS dateRef "
+                + "    DATE '" + dayFormatter.format(start_date) + "' AS dateRef "
                 + "  UNION ALL "
                 + "  SELECT "
                 + "    dateRef + INTERVAL '1' DAY "
                 + "  FROM "
                 + "    DateRange "
                 + "  WHERE "
-                + "    dateRef < DATE '2024-05-15'"
+                + "    dateRef < DATE '" + dayFormatter.format(end_date) + "'"
                 + ") "
                 + "SELECT "
                 + "  employees.*, "
@@ -237,9 +239,12 @@ public class AttendanceRecordService {
                 + "  ) as approved_overtime_hours "
                 + "FROM "
                 + "  employees "
-                + "  JOIN DateRange d ON 1 = 1 "
+                + "  JOIN DateRange d ON 1 = 1 " 
+                + whereCondition
                 + "order by "
                 + "  dateRef";
+        
+        System.out.println(sqlScript);
 
         List<AttendanceRecordSummary> records = new ArrayList<>();
 
