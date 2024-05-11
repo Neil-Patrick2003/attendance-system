@@ -438,7 +438,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         AdminButtonLayout.setVerticalGroup(
             AdminButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminButtonLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(AdminButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19))
@@ -1466,6 +1466,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         editHolidayButton.setForeground(new java.awt.Color(0, 0, 0));
         editHolidayButton.setText("Add");
         editHolidayButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        editHolidayButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editHolidayButtonMouseClicked(evt);
+            }
+        });
 
         deleteHolidayButton.setBackground(new java.awt.Color(51, 153, 255));
         deleteHolidayButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -2044,7 +2049,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(OvertimeHourCmboBx, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(OvertimeDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2682,6 +2687,10 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private void deleteHolidayButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteHolidayButtonMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteHolidayButtonMouseClicked
+
+    private void editHolidayButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editHolidayButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editHolidayButtonMouseClicked
 
     /**
      * @param args the command line arguments
