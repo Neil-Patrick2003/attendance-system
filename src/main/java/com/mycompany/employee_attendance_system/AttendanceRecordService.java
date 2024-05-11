@@ -24,6 +24,7 @@ public class AttendanceRecordService {
     private static final String EMPLOYEE_ID_COLUMN = "employee_id";
 
     public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    public static final SimpleDateFormat dayFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void createAttendanceRecord(Date timeIn, int employee_id) {
         Connection conn = AccessDatabaseConnector.connect();
@@ -50,10 +51,10 @@ public class AttendanceRecordService {
             AccessDatabaseConnector.closeConnection(conn);
         }
     }
-    
-    public static AttendanceRecord getCurrentAttendanceRecordByEmployeeId (int employee_id) {
-        String selectQuery = "SELECT * FROM " + ATTENDANCE_RECORDS_TABLE + " WHERE " + EMPLOYEE_ID_COLUMN + " = '" + employee_id + "' AND time_out is NULL LIMIT 1;";
-        
+
+    public static AttendanceRecord getCurrentAttendanceRecordByEmployeeId(int employee_id, Date date) {
+        String selectQuery = "SELECT * FROM " + ATTENDANCE_RECORDS_TABLE + " WHERE " + EMPLOYEE_ID_COLUMN + " = '" + employee_id + "' AND (time_out is null OR ( time_out is not null and DATE(time_in) = '" + dayFormatter.format(date) + "' )) LIMIT 1;";
+        System.out.println(selectQuery);
         Connection conn = AccessDatabaseConnector.connect();
         try {
             Statement statement = conn.createStatement();
@@ -66,8 +67,9 @@ public class AttendanceRecordService {
             while (resultSet.next()) {
                 int recordId = resultSet.getInt(ATTENDANCE_RECORD_ID_COLUMN);
                 Date timein = resultSet.getDate(TIME_IN_COLUMN);
-                
-                attendanceRecord = new AttendanceRecord(recordId, timein, null, employee_id);
+                Date timeOut = resultSet.getDate(TIME_OUT_COLUMN);
+
+                attendanceRecord = new AttendanceRecord(recordId, timein, timeOut, employee_id);
             }
 
             // Close the result set and statement
@@ -82,6 +84,20 @@ public class AttendanceRecordService {
         }
 
         return null;
+    }
+
+    public static void updateAttendanceRecord(int record_id, Date timeout) {
+        Connection conn = AccessDatabaseConnector.connect();
+        try (Statement statement = conn.createStatement()) {
+            String updateQuery = "Update " + ATTENDANCE_RECORDS_TABLE + " SET " + TIME_OUT_COLUMN + " = '" + dateFormatter.format(timeout) + "' WHERE " + ATTENDANCE_RECORD_ID_COLUMN + " = " + record_id + ";";
+            System.out.println(updateQuery);
+            statement.executeUpdate(updateQuery);
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle SQL exceptions 
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
     }
 
 }
