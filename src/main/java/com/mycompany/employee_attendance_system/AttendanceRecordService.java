@@ -245,7 +245,7 @@ public class AttendanceRecordService {
                 float totalLoggedHours = resultSet.getFloat("total_logged_hours");
                 int approvedOvertimeHours = resultSet.getInt("approved_overtime_hours");
                 
-                int employeeId = resultSet.getInt("approved_overtime_hours");
+                int employeeId = resultSet.getInt("employee_id");
                 String last_name = resultSet.getString("last_name");
                 String first_name = resultSet.getString("first_name");
                 String email = resultSet.getString("email");
