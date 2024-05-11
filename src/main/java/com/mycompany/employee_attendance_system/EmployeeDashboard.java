@@ -67,6 +67,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         updateProfileDeptCombobox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         adminUpdateDeptBox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         updateProfileSubmitBtn.setVisible(false);
+        
+        AdminButton.setVisible(employee.is_admin);
+        AdminButton.setEnabled(employee.is_admin);
 
         this.refreshCurrentAttendanceRecord();
         DefaultListModel leaveBalanceListModel = new DefaultListModel();
