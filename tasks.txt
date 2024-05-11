@@ -1,0 +1,65 @@
+
+Authentication
+    - Login existing - OK
+        - new employee
+        - non existing employee
+    - Register employee - OK    
+        - new employee
+        - existing username
+        - existing email
+    - Update Profile - OK
+
+Attendance
+    - Employee can time in
+    - Employee can timeout
+
+Leave Request
+    - Employee can submit leave request 
+    - Employee can delete leave request if not approved
+    - Employee can cancel leave request if already approved
+
+Manage Employees (Admin)
+    - List all employees
+    - View Employee
+    - Update Employee
+    - Archive Employee
+    - Restore Employee
+
+Manage Departments (Admin)
+    - List all departments
+        - department id
+        - department name
+        - count of employees under this department
+    - Update department
+    - Delete department
+        - cannot delete department with existing employees
+
+Manage Leave request (Admin)
+    - List all leave request
+        - Employee name
+        - Start date
+        - end date
+        - no. of days
+        - status
+        - notes
+    - Approve leave request
+    - Reject Leave request
+
+Manage Reports (Admin)
+    - Admin can view attendance reports of specific employee
+        - Present
+        - Absent
+        - On Leave
+        - Holiday
+        - No. of late
+        - No of working hours
+
+Manage Overtime request (Admin)
+    - List all overtime request
+        - Employee name
+        - no. of hours
+        - status
+        - notes
+    - Approve overtime request
+    - Reject overtime request
+
