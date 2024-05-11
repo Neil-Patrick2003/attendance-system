@@ -295,4 +295,16 @@ public class LeaveRequestService {
         }
     }
 
+    public static void deleteLeaveRequestById(int request_id) {
+        Connection conn = AccessDatabaseConnector.connect();
+        try (Statement statement = conn.createStatement()) {
+            String deleteQuery = "DELETE FROM " + LEAVE_REQUESTS_TABLE + " WHERE " + REQUEST_ID_COLUMN + " = " + request_id;
+            statement.executeUpdate(deleteQuery);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle SQL exceptions
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
+    }
+
 }

@@ -19,6 +19,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     Employee authenticatedEmployee;
     Employee selectedEmployee;
+    AttendanceRecord currentAttendanceRecord;
 
     /**
      * Creates new form EmployeeDashboard
@@ -55,12 +56,13 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         PositionText.setText(authenticatedEmployee.position);
         updateProfileDeptCombobox.setSelectedItem(this.authenticatedEmployee.department.department_name);
         adminUpdateDeptBox.setSelectedItem(this.authenticatedEmployee.department.department_name);
-
-//        if (updateProfileDeptCombobox.getSelectedIndex() >= 0) {
-//            department = DepartmentService.getDepartmentByName(departmentComboBOx.getSelectedItem().toString());
-//        }
         updateProfileSubmitBtn.setVisible(false);
 
+        this.refreshCurrentAttendanceRecord();
+    }
+
+    public void refreshCurrentAttendanceRecord() {
+        this.currentAttendanceRecord = AttendanceRecordService.getCurrentAttendanceRecordByEmployeeId(this.authenticatedEmployee.id);
     }
 
     /**
@@ -93,8 +95,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        Check_In_Button = new javax.swing.JButton();
-        Check_In_Button1 = new javax.swing.JButton();
+        timeButton = new javax.swing.JButton();
         NameLabel = new javax.swing.JLabel();
         Position_Label = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -395,7 +396,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(560, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,40 +408,35 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Check_In_Button.setBackground(new java.awt.Color(30, 144, 255));
-        Check_In_Button.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        Check_In_Button.setForeground(new java.awt.Color(225, 225, 225));
-        Check_In_Button.setText("Time in");
-        Check_In_Button.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
-
-        Check_In_Button1.setBackground(new java.awt.Color(30, 144, 255));
-        Check_In_Button1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        Check_In_Button1.setForeground(new java.awt.Color(225, 225, 225));
-        Check_In_Button1.setText("TIme Out");
-        Check_In_Button1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
+        timeButton.setBackground(new java.awt.Color(30, 144, 255));
+        timeButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        timeButton.setForeground(new java.awt.Color(225, 225, 225));
+        timeButton.setText("TIme In");
+        timeButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
+        timeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                timeButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Check_In_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Check_In_Button1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(timeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Check_In_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Check_In_Button1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(timeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         NameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -499,7 +495,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(135, 206, 235));
 
-        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\Neil Patrick\\Downloads\\icons8-about-30.png")); // NOI18N
         jLabel14.setText("jLabel12");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -561,7 +556,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -904,8 +899,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             employeeRequestLeaveTable.getColumnModel().getColumn(4).setResizable(false);
             employeeRequestLeaveTable.getColumnModel().getColumn(5).setResizable(false);
         }
-
-        jLabel20.setIcon(new javax.swing.ImageIcon("C:\\Users\\Neil Patrick\\Downloads\\icons8-briefcase-30.png")); // NOI18N
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -1776,6 +1769,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_employeeRequestLeaveTableMouseClicked
 
+    private void timeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeButtonMouseClicked
+        timeButton.setEnabled(false);
+
+        AttendanceRecordService.createAttendanceRecord(new Date(), this.authenticatedEmployee.id);
+        this.refreshCurrentAttendanceRecord();
+        timeButton.setEnabled(true);
+    }//GEN-LAST:event_timeButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1818,8 +1819,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel AdminButton;
     private javax.swing.JTabbedPane AdminDashboradTab;
     private javax.swing.JTable AdminEmployeesTable;
-    private javax.swing.JButton Check_In_Button;
-    private javax.swing.JButton Check_In_Button1;
     private javax.swing.JPanel DashboardButton;
     private javax.swing.JPanel DashboradTab;
     private javax.swing.JLabel DepartmentLabel;
@@ -1910,6 +1909,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton timeButton;
     private javax.swing.JComboBox<String> updateProfileDeptCombobox;
     private javax.swing.JButton updateProfileEditBtn;
     private javax.swing.JButton updateProfileSubmitBtn;
