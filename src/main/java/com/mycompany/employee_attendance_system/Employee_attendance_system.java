@@ -18,6 +18,7 @@ public class Employee_attendance_system {
 
         for (int i = 0; i < employees.size(); i++) {
             Employee employee = employees.get(i);
+           
             
 //            AttendanceRecordService.createAttendanceRecord(new Date(), employee.id);
 
@@ -54,6 +55,17 @@ public class Employee_attendance_system {
 //            System.out.println(leaveRequest.employee.first_name);
 //            System.out.println(leaveRequest.leaveType.name);
 //            System.out.println(leaveRequest.startDate + " " + leaveRequest.endDate);
+//        }
+
+//        List<OvertimeRequest> overtimeRequests = OvertimeRequestService.getOvertimeRequests();
+//
+//        for (int i = 0; i < overtimeRequests.size(); i++) {
+//            OvertimeRequest overtimeRequest = overtimeRequests.get(i);
+//
+//            System.out.println(overtimeRequest.employee.first_name);
+//            System.out.println(overtimeRequest.noOfHours);
+//            
+//            OvertimeRequestService.updateOvertimeRequest(overtimeRequest.request_id, overtimeRequest.date, i, "Approved", overtimeRequest.notes, overtimeRequest.employee_id);
 //        }
 
 //        Timestamp timeIn = new Timestamp(System.currentTimeMillis());

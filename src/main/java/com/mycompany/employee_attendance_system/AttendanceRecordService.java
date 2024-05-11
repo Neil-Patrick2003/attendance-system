@@ -83,5 +83,19 @@ public class AttendanceRecordService {
 
         return null;
     }
+    
+        public static void updateAttendanceRecord(int record_id, Date timeout) {
+        Connection conn = AccessDatabaseConnector.connect();
+        try (Statement statement = conn.createStatement()) {
+            String updateQuery = "Update " + ATTENDANCE_RECORDS_TABLE + " SET " + TIME_OUT_COLUMN + " = '" + dateFormatter.format(timeout) +  "' WHERE " + ATTENDANCE_RECORD_ID_COLUMN + " = " + record_id + ";";
+            System.out.println(updateQuery);
+            statement.executeUpdate(updateQuery);
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle SQL exceptions
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
+    }
 
 }
