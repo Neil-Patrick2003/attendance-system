@@ -1481,13 +1481,14 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         editHolidayButton.setBackground(new java.awt.Color(0, 153, 255));
         editHolidayButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        editHolidayButton.setForeground(new java.awt.Color(255, 255, 255));
-        editHolidayButton.setText("Edit");
+        editHolidayButton.setForeground(new java.awt.Color(0, 0, 0));
+        editHolidayButton.setText("Add");
         editHolidayButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         jButton1.setBackground(new java.awt.Color(51, 153, 255));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Update");
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Delete");
         jButton1.setBorder(null);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
