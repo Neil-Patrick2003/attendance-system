@@ -117,7 +117,7 @@ BEGIN
     SELECT IFNULL(SUM(DATEDIFF(end_date, start_date) + 1), 0) INTO total_days_taken 
     FROM leave_requests 
     WHERE leave_requests.leave_type_id = leave_type_id AND leave_requests.employee_id = employee_id
-    AND leave_requests.status = 'Approved';
+    AND leave_requests.status = 'Approved' AND YEAR(start_date) = YEAR(CURDATE());
 
     -- Calculate leave balance
     IF total_days_taken > 0 THEN
