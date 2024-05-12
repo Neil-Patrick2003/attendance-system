@@ -169,7 +169,7 @@ public class AttendanceRecordService {
                 + "          where "
                 + "            leave_requests.employee_id = employees.employee_id "
                 + "            and dateRef <= leave_requests.end_date "
-                + "            and dateRef >= leave_requests.start_date "
+                + "            and dateRef >= leave_requests.start_date and leave_requests.status = 'Approved' "
                 + "        ) "
                 + "    ) THEN 'On leave' when ( "
                 + "      dateRef > CURDATE() "
