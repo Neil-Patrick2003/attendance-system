@@ -9,16 +9,16 @@ Authentication
         - existing email
     - Update Profile - OK
 
-Attendance
+Attendance -> ok
     - Employee can time in
     - Employee can timeout
 
-Leave Request
+Leave Request OK
     - Employee can submit leave request 
     - Employee can delete leave request if not approved
     - Employee can cancel leave request if already approved
 
-Manage Employees (Admin)
+Manage Employees (Admin) 
     - List all employees
     - View Employee
     - Update Employee

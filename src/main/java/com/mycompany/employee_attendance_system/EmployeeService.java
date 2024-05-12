@@ -60,6 +60,7 @@ public class EmployeeService {
                 String phone_number = resultSet.getString(PHONE_NUMBER_COLUMN);
                 String address = resultSet.getString(ADDRESS_COLUMN);
                 boolean is_admin = resultSet.getBoolean(IS_ADMIN_COLUMN);
+                boolean is_disabled = resultSet.getBoolean("is_disabled");
 
                 int department_id = resultSet.getInt(DEPARTMENT_ID_COLUMN);
                 String position = resultSet.getString(POSITION_COLUMN);
@@ -70,6 +71,7 @@ public class EmployeeService {
                 Department department = new Department(department_id, department_name);
 
                 employee.setDepartment(department);
+                employee.setIsDisabled(is_disabled);
             }
 
             // Close the result set and statement
@@ -112,6 +114,7 @@ public class EmployeeService {
                 String phone_number = resultSet.getString(PHONE_NUMBER_COLUMN);
                 String address = resultSet.getString(ADDRESS_COLUMN);
                 boolean is_admin = resultSet.getBoolean(IS_ADMIN_COLUMN);
+                boolean is_disabled = resultSet.getBoolean("is_disabled");
                 int department_id = resultSet.getInt(DEPARTMENT_ID_COLUMN);
                 String position = resultSet.getString(POSITION_COLUMN);
                 Date hiring_date = hiring_date = resultSet.getDate(HIRING_DATE_COLUMN);
@@ -121,6 +124,7 @@ public class EmployeeService {
                 Department department = new Department(department_id, department_name);
 
                 employee.setDepartment(department);
+                employee.setIsDisabled(is_disabled);
             }
 
             // Close the result set and statement
@@ -229,4 +233,17 @@ public class EmployeeService {
         }
     }
 
+    public static void updateEmployeeDisable(int employee_id, boolean is_disabled) {
+        Connection conn = AccessDatabaseConnector.connect();
+        try (Statement statement = conn.createStatement()) {
+            String updateQuery = "Update " + EMPLOYEES_TABLE + " SET is_disabled = " + is_disabled + " WHERE " + EMPLOYEE_ID_COLUMN + " = " + employee_id + ";";
+            System.out.println(updateQuery);
+            statement.executeUpdate(updateQuery);
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle SQL exceptions
+        } finally {
+            AccessDatabaseConnector.closeConnection(conn);
+        }
+    }
 }

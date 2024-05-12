@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -2601,7 +2600,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_updateProfileSubmitBtnActionPerformed
 
     private void AdminEmployeesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminEmployeesTableMouseClicked
-        // TODO add your handling code here:
         int i = AdminEmployeesTable.getSelectedRow();
         String email = AdminEmployeesTable.getValueAt(i, 3).toString();
 
@@ -2610,7 +2608,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         StringBuilder message = new StringBuilder();
         message.append("Email: ").append(email).append("\n\n");
 
-        Object[] options = {"Update Employee.", "Close"};
+        Object[] options = {"Update Employee.", this.selectedEmployee.isDisabled ? "Mark as active" : "Mark as inactive", "Close"};
+
         int choice = JOptionPane.showOptionDialog(null, message.toString(), "Updated Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
         if (choice == 0) {
@@ -2625,6 +2624,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             adminUpdatePositionText.setText(this.selectedEmployee.position);
             isAdminTextBox.setSelected(this.selectedEmployee.is_admin);
         }
+        
+        if (choice == 1) {
+            EmployeeService.updateEmployeeDisable(this.selectedEmployee.id, !this.selectedEmployee.isDisabled);
+        }
+        
+        System.out.println(choice);
 
     }//GEN-LAST:event_AdminEmployeesTableMouseClicked
 
@@ -2820,7 +2825,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         message.append("No of hours: " + overtimeRequest.noOfHours).append("\n");
         message.append("Notes : " + overtimeRequest.notes).append("\n");
 
-        if (overtimeRequest.status.toLowerCase(Locale.ITALY).equals("for approval")) {
+        if (overtimeRequest.status.toLowerCase().equals("for approval")) {
             Object[] option = {"Approved", "Reject"};
             int choice = JOptionPane.showOptionDialog(null, message.toString(), "Overtime Request Details", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[0]);
             if (choice == 0) {

@@ -26,6 +26,7 @@ public class Employee {
     int department_id;
     String position;
     Department department;
+    boolean isDisabled;
 
     public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -56,4 +57,7 @@ public class Employee {
         return dateFormatter.format(this.hiring_date);
     }
 
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled = isDisabled;
+    }
 }
