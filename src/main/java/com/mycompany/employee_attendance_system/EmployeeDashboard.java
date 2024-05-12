@@ -716,6 +716,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(135, 206, 235));
 
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/employee_attendance_system/icons/icons8-about-30.png"))); // NOI18N
         jLabel14.setText("jLabel12");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N

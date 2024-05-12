@@ -414,6 +414,7 @@ public class EmployeeSignUp extends javax.swing.JPanel {
         mainFrame.remove(this);
         EmployeeSignUp pan = new EmployeeSignUp();
         mainFrame.add(pan);
+        
 
         mainFrame.revalidate();
         mainFrame.repaint();
