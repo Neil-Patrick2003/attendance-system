@@ -120,7 +120,7 @@ public class AttendanceRecordService {
         String whereCondition = employeeIdFilter > 0 ? " WHERE employees.employee_id = '" + employeeIdFilter + "' ": "";
         
         String sqlScript
-                = "WITH RECURSIVE DateRange AS ("
+                = "WITH RECURSIVE DateRange AS (" // Get date range from start date to end date.
                 + "  SELECT "
                 + "    DATE '" + dayFormatter.format(start_date) + "' AS dateRef "
                 + "  UNION ALL "
@@ -133,8 +133,8 @@ public class AttendanceRecordService {
                 + ") "
                 + "SELECT "
                 + "  employees.*, "
-                + "  dateRef as date, "
-                + "  ( "
+                + "  dateRef as date, "   // Date from above query
+                + "  ( "                  
                 + "    select "
                 + "      attendance_records.time_in "
                 + "    from "
@@ -144,7 +144,7 @@ public class AttendanceRecordService {
                 + "      and DATE(attendance_records.time_in) = dateRef is not null "
                 + "    LIMIT "
                 + "      1 "
-                + "  ) as time_in, "
+                + "  ) as time_in, "    // Get employee time in from attendance_records in specific fime
                 + "  ( "
                 + "    select "
                 + "      attendance_records.time_out "
@@ -155,11 +155,11 @@ public class AttendanceRecordService {
                 + "      and DATE(attendance_records.time_in) = dateRef is not null "
                 + "    LIMIT "
                 + "      1 "
-                + "  ) as time_out, "
+                + "  ) as time_out, "    // Get employee time out from attendance_records in specific fime
                 + "  ( "
-                + "    Case "
+                + "    Case "   // if date is holiday based on holidays table. then remarks is 'HOLIDAY'
                 + "     when (select exists (select * from holidays where holidays.holiday_date = dateRef)) THEN 'Holiday'"
-                + "     when ( "
+                + "     when ( " // if employee has approved leave request. then remarks is 'On leave'
                 + "      select "
                 + "        exists ( "
                 + "          select "
@@ -172,7 +172,7 @@ public class AttendanceRecordService {
                 + "            and dateRef >= leave_requests.start_date and leave_requests.status = 'Approved' "
                 + "        ) "
                 + "    ) THEN 'On leave' when ( "
-                + "      dateRef > CURDATE() "
+                + "      dateRef > CURDATE() " // if date > current date remarks is null
                 + "    ) THEN null when ( "
                 + "      select "
                 + "        exists ( "
@@ -184,7 +184,7 @@ public class AttendanceRecordService {
                 + "            attendance_records.employee_id = employees.employee_id "
                 + "            and DATE(attendance_records.time_in) = dateRef "
                 + "        ) "
-                + "    ) THEN 'Present' when ( "
+                + "    ) THEN 'Present' when ( " // if has time in and timeout. then remarks is 'Present'
                 + "      select "
                 + "        not exists ( "
                 + "          select "
@@ -195,9 +195,9 @@ public class AttendanceRecordService {
                 + "            attendance_records.employee_id = employees.employee_id "
                 + "            and DATE(attendance_records.time_in) = dateRef "
                 + "        ) "
-                + "    ) THEN 'Absent' ELSE null END "
+                + "    ) THEN 'Absent' ELSE null END "  // if no time in and timeout. then remarks is 'Absent'
                 + "  ) as remarks, "
-                + "  case when ( "
+                + "  case when ( " // Compute total hours based on start date and end date
                 + "    select "
                 + "      exists ( "
                 + "        select "
@@ -227,7 +227,7 @@ public class AttendanceRecordService {
                 + "    LIMIT "
                 + "      1 "
                 + "  ) else null end as total_logged_hours, "
-                + "  ( "
+                + "  ( " // get approved overtime hours
                 + "    Select "
                 + "      no_of_hours "
                 + "    from "
