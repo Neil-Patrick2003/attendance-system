@@ -206,6 +206,7 @@ public class LoginFrame extends javax.swing.JFrame {
         signupFrame.pack(); // Resize the frame to fit the component
         signupFrame.setVisible(true);
         signupFrame.setLocationRelativeTo(null);
+        this.dispose();
 
     }//GEN-LAST:event_signup_buttonMouseClicked
 

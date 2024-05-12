@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -403,11 +404,19 @@ public class EmployeeSignUp extends javax.swing.JPanel {
     }//GEN-LAST:event_SignupButtonMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-//        // TODO add your handling code here:
-//        LoginFrame loginFrame = new LoginFrame();
-//        loginFrame.setVisible(true);
-//        loginFrame.setLocationRelativeTo(null);
-//        this
+        // TODO add your handling code here:
+        LoginFrame loginFrame = new LoginFrame();
+        loginFrame.setVisible(true);
+        loginFrame.setLocationRelativeTo(null);
+        
+        JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//        this.setVisible(false);
+        mainFrame.remove(this);
+        EmployeeSignUp pan = new EmployeeSignUp();
+        mainFrame.add(pan);
+
+        mainFrame.revalidate();
+        mainFrame.repaint();
 
     }//GEN-LAST:event_jLabel15MouseClicked
 
