@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
-/**
+/**    
  *
  * @author Neil Patrick
  */
@@ -106,8 +106,9 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         profileInformationListModel.addElement("  " + authenticatedEmployee.hiring_date);
         profileInformationListModel.addElement("  " + authenticatedEmployee.position);
         profileInformationListModel.addElement("  " + authenticatedEmployee.username);
+        profileInformationListModel.addElement("  " + authenticatedEmployee.address);
         profileInformationListModel.addElement("  ");
-        profileInformationListModel.addElement("  " + authenticatedEmployee.hiring_date);
+        
 
         MyInformationList.setModel(profileInformationListModel);
 
@@ -258,6 +259,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         DepartmentTab = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         DepartmentTable = new javax.swing.JTable();
         departmentFormLabel = new javax.swing.JLabel();
@@ -1001,11 +1003,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 updateProfileSubmitBtnMouseClicked(evt);
             }
         });
-        updateProfileSubmitBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateProfileSubmitBtnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout ProfileTabLayout = new javax.swing.GroupLayout(ProfileTab);
         ProfileTab.setLayout(ProfileTabLayout);
@@ -1544,15 +1541,25 @@ public class EmployeeDashboard extends javax.swing.JFrame {
 
         jPanel20.setBackground(new java.awt.Color(135, 206, 250));
 
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel51.setText("Manage Departments");
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 42, Short.MAX_VALUE)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         DepartmentTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -1627,7 +1634,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(departmentSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(departmentDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1647,7 +1654,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(departmentNameTex, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(departmentDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(departmentSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DepartmentTabLayout = new javax.swing.GroupLayout(DepartmentTab);
@@ -2050,7 +2057,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout adminManageEmployeeLayout = new javax.swing.GroupLayout(adminManageEmployee);
@@ -2562,7 +2569,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_AddLeaveReqButtonMouseClicked
 
     private void updateProfileSubmitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateProfileSubmitBtnMouseClicked
-        // TODO add your handling code here:
+            // TODO add your handling code here:
         String last_name = (String) LastNameText.getText();
         String first_name = (String) FirstNameText.getText();
         String email = (String) EmailText.getText();
@@ -2577,10 +2584,12 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                 || position.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please customer to update.");
         } else {
-            EmployeeService.updateEmployee(authenticatedEmployee.id, last_name, first_name, email, phone_number, address, this.authenticatedEmployee.username, this.authenticatedEmployee.password, this.authenticatedEmployee.is_admin, HiringdateChooser.getDate(), department.department_id, position);
+            EmployeeService.updateEmployee(authenticatedEmployee.id, last_name, first_name, email, phone_number, address, this.authenticatedEmployee.username, this.authenticatedEmployee.password, this.authenticatedEmployee.is_admin, this.authenticatedEmployee.hiring_date, department.department_id, position);
             updateProfileEditBtn.setText("Edit Profile");
             updateProfileSubmitBtn.setVisible(false);
             updateProfileSubmitBtn.setBackground(new Color(255, 255, 255));
+
+                
 
             JOptionPane.showMessageDialog(rootPane, "Updated Successfully.");
             refreshAuthEmployee();
@@ -2616,10 +2625,6 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         ProfileTab.revalidate();
         ProfileTab.repaint();
     }//GEN-LAST:event_updateProfileEditBtnActionPerformed
-
-    private void updateProfileSubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateProfileSubmitBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateProfileSubmitBtnActionPerformed
 
     private void AdminEmployeesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminEmployeesTableMouseClicked
         int i = AdminEmployeesTable.getSelectedRow();
@@ -3224,6 +3229,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
