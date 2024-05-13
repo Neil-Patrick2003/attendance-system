@@ -57,7 +57,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                TImeLabel.setText(dateFormat.format(new Date()));
+                TImeLabel.setText( dateFormat.format(new Date()));
             }
         });
         timer.start();
@@ -514,10 +514,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        TImeLabel.setForeground(new java.awt.Color(0, 0, 0));
+        TImeLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         LogoutBtn.setBackground(new java.awt.Color(51, 204, 255));
         LogoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LogoutBtn.setForeground(new java.awt.Color(255, 255, 255));
         LogoutBtn.setText("LOGOUT");
         LogoutBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         LogoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -542,10 +543,11 @@ public class EmployeeDashboard extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(LeftPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TImeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LogoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(LogoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(LeftPanelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(TImeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LeftPanelLayout.setVerticalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1702,7 +1704,7 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         editHolidayButton.setBackground(new java.awt.Color(0, 153, 255));
         editHolidayButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         editHolidayButton.setForeground(new java.awt.Color(0, 0, 0));
-        editHolidayButton.setText("Add");
+        editHolidayButton.setText("Create");
         editHolidayButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         editHolidayButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
